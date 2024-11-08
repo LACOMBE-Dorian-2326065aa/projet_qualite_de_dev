@@ -97,24 +97,29 @@ public class Lycanthrope {
 
         while (iterator.hasNext()) {
             Lycanthrope loup = iterator.next();
-            loup.entendre(hurlementType, this);
+            if (loup != this) {
+                loup.entendre(hurlementType, this);
+            }
         }
     }
 
     public void entendre(String hurlementType, Lycanthrope loup) {
         switch (hurlementType) {
             case Hurlements.APPARTENANCE:
-                hurler(Hurlements.APPARTENANCE_SANS_REPONSE);
-                break;
-            case Hurlements.DOMINATION:
-                if (loup.meute.getMeute().indexOf(loup) > meute.getMeute().indexOf(this)) {
-                    hurler(Hurlements.SOUMISSION);
-
+                if (loup.meute == meute) {
+                    System.out.println("Un lycanthrope de rang " + getRangDomination() + " a entendu le hurlement " + hurlementType + " et provoque le hurlement : " + Hurlements.APPARTENANCE_SANS_REPONSE + ".");
+                    hurler(Hurlements.APPARTENANCE_SANS_REPONSE);
                 }
                 break;
-            default:
-                System.out.println("Un lycanthrope a entendu le hurlement, sans donner de réponse.");
-
+            case Hurlements.DOMINATION:
+                if ((loup.meute.getMeute().indexOf(loup) < meute.getMeute().indexOf(this) && loup.getRangDomination() == getRangDomination()) || loup.meute.getMeute().indexOf(loup) > meute.getMeute().indexOf(this)) {
+                    System.out.println("Un lycanthrope de rang " + getRangDomination() + " a entendu le hurlement " + hurlementType + " et provoque le hurlement : " + Hurlements.AGRESSIVITE + ".");
+                    hurler(Hurlements.AGRESSIVITE);
+                } else {
+                    System.out.println("Un lycanthrope de rang " + getRangDomination() + " a entendu le hurlement " + hurlementType + " et provoque le hurlement : " + Hurlements.SOUMISSION + ".");
+                    hurler(Hurlements.SOUMISSION);
+                }
+                break;
         }
     }
 
