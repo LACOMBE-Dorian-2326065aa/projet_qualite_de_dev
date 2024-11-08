@@ -1,17 +1,19 @@
 package TD4;
 
+import java.util.Iterator;
+
 public class Lycanthrope {
 
     private boolean sexe;
     private String categorieAge;
     private int force;
     private int facteurDomination;
-    private int rangDomination;
+    private char rangDomination;
     private int niveau;
     private int facteurImpetuosite;
     private Meute meute;
 
-    public Lycanthrope(Meute meute, int facteurImpetuosite, int niveau, int rangDomination, int facteurDomination, int force, String categorieAge, boolean sexe) {
+    public Lycanthrope(Meute meute, int facteurImpetuosite, int niveau, char rangDomination, int facteurDomination, int force, String categorieAge, boolean sexe) {
         this.meute = meute;
         this.facteurImpetuosite = facteurImpetuosite;
         this.niveau = niveau;
@@ -58,7 +60,7 @@ public class Lycanthrope {
         return rangDomination;
     }
 
-    public void setRangDomination(int rangDomination) {
+    public void setRangDomination(char rangDomination) {
         this.rangDomination = rangDomination;
     }
 
@@ -90,12 +92,30 @@ public class Lycanthrope {
         System.out.println(this);
     }
 
-    public void hurler() {
-        System.out.println("AAAAAAAARRRRRRRRRGGGGGGHHHHHHHHHHHHHHHHH !!!!!");
+    public void hurler(String hurlementType) {
+        Iterator<Lycanthrope> iterator = meute.getMeute().iterator();
+
+        while (iterator.hasNext()) {
+            Lycanthrope loup = iterator.next();
+            loup.entendre(hurlementType, this);
+        }
     }
 
-    public void entendre() {
-        // TODO
+    public void entendre(String hurlementType, Lycanthrope loup) {
+        switch (hurlementType) {
+            case Hurlements.APPARTENANCE:
+                hurler(Hurlements.APPARTENANCE_SANS_REPONSE);
+                break;
+            case Hurlements.DOMINATION:
+                if (loup.meute.getMeute().indexOf(loup) > this.meute.getMeute().indexOf(this)) {
+                    hurler(Hurlements.SOUMISSION);
+
+                }
+                break;
+            default:
+                System.out.println("Un lycanthrope a entendu le hurlement, sans donner de réponse.");
+
+        }
     }
 
     public void separerDeLaMeute() {

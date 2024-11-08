@@ -1,0 +1,11 @@
+package TD4;
+
+public interface Hurlements {
+
+    String APPARTENANCE = "APPARTENANCE";
+    String APPARTENANCE_SANS_REPONSE = "APPARTENANCE_SANS_REPONSE";
+    String DOMINATION = "DOMINATION";
+    String SOUMISSION = "SOUMISSION";
+    String AGRESSIVITE = "AGRESSIVITE";
+
+}

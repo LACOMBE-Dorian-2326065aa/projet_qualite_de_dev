@@ -1,5 +1,6 @@
 package TD4;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -28,8 +29,9 @@ public class Meute {
             }
         }
     }
-    public Meute getMeute() {
-        return this;
+
+    public Lycanthrope[] getMeute() {
+        return this.meute;
     }
 
     public void orderMeute() {
