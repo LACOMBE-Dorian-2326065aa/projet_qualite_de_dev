@@ -1,4 +1,8 @@
 package TD4;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class Meute {
     private String nom;
     private String position;
@@ -23,6 +27,21 @@ public class Meute {
                 break;
             }
         }
+    }
+    public Meute getMeute() {
+        return this;
+    }
+
+    public void orderMeute() {
+        Arrays.sort(meute, new Comparator<Lycanthrope>() {
+            @Override
+            public int compare(Lycanthrope l1, Lycanthrope l2) {
+                if (l1 == null && l2 == null) return 0;
+                if (l1 == null) return 1;
+                if (l2 == null) return -1;
+                return rang.indexOf(l1.getRangDomination()) - rang.indexOf(l2.getRangDomination());
+            }
+        });
     }
 
     
