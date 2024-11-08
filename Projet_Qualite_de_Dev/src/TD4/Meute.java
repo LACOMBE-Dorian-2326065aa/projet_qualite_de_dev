@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class Meute {
     private String nom;
     private String position;
-    private Lycanthrope[] meute;
+    private ArrayList<Lycanthrope> meute;
     private String rang = "αβγδεζηθικλμνξοπρστυϕχψω";
 
     
@@ -30,7 +30,7 @@ public class Meute {
         }
     }
 
-    public Lycanthrope[] getMeute() {
+    public ArrayList<Lycanthrope> getMeute() {
         return this.meute;
     }
 

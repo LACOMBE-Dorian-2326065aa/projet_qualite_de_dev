@@ -107,7 +107,7 @@ public class Lycanthrope {
                 hurler(Hurlements.APPARTENANCE_SANS_REPONSE);
                 break;
             case Hurlements.DOMINATION:
-                if (loup.meute.getMeute().indexOf(loup) > this.meute.getMeute().indexOf(this)) {
+                if (loup.meute.getMeute().indexOf(loup) > meute.getMeute().indexOf(this)) {
                     hurler(Hurlements.SOUMISSION);
 
                 }
