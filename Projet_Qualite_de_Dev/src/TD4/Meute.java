@@ -6,13 +6,19 @@ public class Meute {
     private String nom;
     private String position;
     private ArrayList<Lycanthrope> meute;
-    private String rang = "αβγδεζηθικλμνξοπρστυϕχψω";
+    final private String rang = "αβγδεζηθικλμνξοπρστυϕχψω";
 
-    public void addLycanthrope(Lycanthrope lycanthrope, ArrayList<Lycanthrope> meute) {
+    public Meute(String nom, String position) {
+        this.nom = nom;
+        this.position = position;
+        this.meute = new ArrayList<>();
+    }
+
+    public void addLycanthrope(Lycanthrope lycanthrope) {
         meute.add(lycanthrope);
     }
 
-    public void removeLycanthrope(Lycanthrope lycanthrope, ArrayList<Lycanthrope> meute) {
+    public void removeLycanthrope(Lycanthrope lycanthrope) {
         for (int i = 0; i < meute.size(); i++) {
             if (meute.get(i) == lycanthrope) {
                 meute.remove(i);

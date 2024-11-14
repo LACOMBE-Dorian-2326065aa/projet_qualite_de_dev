@@ -24,7 +24,7 @@ public class Lycanthrope {
         this.sexe = sexe;
     }
 
-    public boolean isSexe() {
+    public boolean getSexe() {
         return sexe;
     }
 
@@ -56,7 +56,7 @@ public class Lycanthrope {
         this.facteurDomination = facteurDomination;
     }
 
-    public int getRangDomination() {
+    public char getRangDomination() {
         return rangDomination;
     }
 
@@ -89,7 +89,7 @@ public class Lycanthrope {
     }
 
     public void afficherCaracteristiques() {
-        System.out.println(this);
+        System.out.println("Lycanthrope :\n- Rang : " + getRangDomination() + "\n- Sexe : " + (sexe ? "Femelle" : "Mâle") + "\n- Niveau : " + getNiveau() + "\n- Force : " + getForce() + "\n- Catégorie d'âge : " + getCategorieAge() + "\n");
     }
 
     public void hurler(String hurlementType) {
@@ -97,29 +97,35 @@ public class Lycanthrope {
 
         while (iterator.hasNext()) {
             Lycanthrope loup = iterator.next();
-            loup.entendre(hurlementType, this);
+            if (loup != this) {
+                loup.entendre(hurlementType, this);
+            }
         }
     }
 
     public void entendre(String hurlementType, Lycanthrope loup) {
         switch (hurlementType) {
             case Hurlements.APPARTENANCE:
-                hurler(Hurlements.APPARTENANCE_SANS_REPONSE);
-                break;
-            case Hurlements.DOMINATION:
-                if (loup.meute.getMeute().indexOf(loup) > meute.getMeute().indexOf(this)) {
-                    hurler(Hurlements.SOUMISSION);
-
+                if (loup.meute == meute) {
+                    System.out.println("Un lycanthrope de rang " + getRangDomination() + " a entendu le hurlement " + hurlementType + " et provoque le hurlement : " + Hurlements.APPARTENANCE_SANS_REPONSE + ".");
+                    hurler(Hurlements.APPARTENANCE_SANS_REPONSE);
                 }
                 break;
-            default:
-                System.out.println("Un lycanthrope a entendu le hurlement, sans donner de réponse.");
-
+            case Hurlements.DOMINATION:
+                if ((loup.meute.getMeute().indexOf(loup) < meute.getMeute().indexOf(this) && loup.getRangDomination() == getRangDomination()) || loup.meute.getMeute().indexOf(loup) > meute.getMeute().indexOf(this)) {
+                    System.out.println("Un lycanthrope de rang " + getRangDomination() + " a entendu le hurlement " + hurlementType + " et provoque le hurlement : " + Hurlements.AGRESSIVITE + ".");
+                    hurler(Hurlements.AGRESSIVITE);
+                } else {
+                    System.out.println("Un lycanthrope de rang " + getRangDomination() + " a entendu le hurlement " + hurlementType + " et provoque le hurlement : " + Hurlements.SOUMISSION + ".");
+                    hurler(Hurlements.SOUMISSION);
+                }
+                break;
         }
     }
 
     public void separerDeLaMeute() {
         meute = null;
+        System.out.println("Un lycantrophe de rang " + getRangDomination() + " s'est séparé de sa meute.");
     }
 
     public void transformerEnHumain() {
