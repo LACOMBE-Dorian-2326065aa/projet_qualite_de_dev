@@ -14,6 +14,30 @@ public class HopitalFantastique {
         this.medecins = new ArrayList<>();
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public List<Medecin> getMedecins() {
+        return medecins;
+    }
+
+    public void setMedecins(List<Medecin> medecins) {
+        this.medecins = medecins;
+    }
+
+    public List<ServiceMedical> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceMedical> services) {
+        this.services = services;
+    }
+
     public void ajouterService(ServiceMedical service) {
         services.add(service);
     }
