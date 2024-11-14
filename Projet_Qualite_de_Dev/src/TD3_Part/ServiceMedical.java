@@ -20,6 +20,54 @@ public class ServiceMedical {
         this.capaciteActuelle = 0;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
+    }
+
+    public List<Creature> getCreatures() {
+        return creatures;
+    }
+
+    public void setCreatures(List<Creature> creatures) {
+        this.creatures = creatures;
+    }
+
+    public int getCapaciteActuelle() {
+        return capaciteActuelle;
+    }
+
+    public void setCapaciteActuelle(int capaciteActuelle) {
+        this.capaciteActuelle = capaciteActuelle;
+    }
+
+    public int getCapaciteMax() {
+        return capaciteMax;
+    }
+
+    public void setCapaciteMax(int capaciteMax) {
+        this.capaciteMax = capaciteMax;
+    }
+
+    public double getSuperficie() {
+        return superficie;
+    }
+
+    public void setSuperficie(double superficie) {
+        this.superficie = superficie;
+    }
+
     public void ajouterCreature(Creature creature) {
         if (capaciteActuelle < capaciteMax) {
             creatures.add(creature);
