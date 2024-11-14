@@ -32,6 +32,54 @@ public abstract class Creature {
         this.nom = nom;
     }
 
+    public int getMorale() {
+        return morale;
+    }
+
+    public void setMorale(int morale) {
+        this.morale = morale;
+    }
+
+    public List<String> getMaladies() {
+        return maladies;
+    }
+
+    public void setMaladies(List<String> maladies) {
+        this.maladies = maladies;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getTaille() {
+        return taille;
+    }
+
+    public void setTaille(double taille) {
+        this.taille = taille;
+    }
+
+    public double getPoids() {
+        return poids;
+    }
+
+    public void setPoids(double poids) {
+        this.poids = poids;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
     public void attendre(){
         this.morale--;
     }
