@@ -131,4 +131,9 @@ public class Lycanthrope {
     public void transformerEnHumain() {
         // TODO
     }
+
+    public void contaminerLycan(){
+        System.out.println("Le lycanthrope contamine son équipe médical");
+    }
+
 }
