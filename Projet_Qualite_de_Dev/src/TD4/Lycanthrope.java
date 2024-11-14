@@ -129,7 +129,12 @@ public class Lycanthrope {
     }
 
     public void transformerEnHumain() {
-        // TODO
+        if (Math.random() > (niveau / 100.0)) {
+            separerDeLaMeute();
+            System.out.println("Le lycanthrope s'est transformé en humain et a quitté sa meute.");
+        } else {
+            System.out.println("Le lycanthrope s'est transformé en humain mais reste dans sa meute.");
+        }
     }
 
     public void contaminerLycan(){

@@ -27,6 +27,14 @@ public class Meute {
         }
     }
 
+    	public String getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
     public ArrayList<Lycanthrope> getMeute() {
         return this.meute;
     }
