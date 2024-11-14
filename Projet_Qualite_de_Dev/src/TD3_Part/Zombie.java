@@ -7,9 +7,9 @@ public class Zombie extends Creature {
     }
 
     public void regen() {
-        System.out.println(nom + " possède une résistance accrue aux maladies.");
-        if (!maladies.isEmpty()) {
-            morale = Math.max(morale - 5, 0);
+        System.out.println(super.getNom() + " possède une résistance accrue aux maladies.");
+        if (!super.getMaladies().isEmpty()) {
+            super.setMorale(Math.max(super.getMorale() - 5, 0));
         }
     }
 }
