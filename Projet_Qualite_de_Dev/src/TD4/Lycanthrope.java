@@ -24,7 +24,7 @@ public class Lycanthrope {
         this.sexe = sexe;
     }
 
-    public boolean isSexe() {
+    public boolean getSexe() {
         return sexe;
     }
 
@@ -56,7 +56,7 @@ public class Lycanthrope {
         this.facteurDomination = facteurDomination;
     }
 
-    public int getRangDomination() {
+    public char getRangDomination() {
         return rangDomination;
     }
 
@@ -89,7 +89,7 @@ public class Lycanthrope {
     }
 
     public void afficherCaracteristiques() {
-        System.out.println(this);
+        System.out.println("Lycanthrope :\n- Rang : " + getRangDomination() + "\n- Sexe : " + (sexe ? "Femelle" : "Mâle") + "\n- Niveau : " + getNiveau() + "\n- Force : " + getForce() + "\n- Catégorie d'âge : " + getCategorieAge() + "\n");
     }
 
     public void hurler(String hurlementType) {
@@ -125,6 +125,7 @@ public class Lycanthrope {
 
     public void separerDeLaMeute() {
         meute = null;
+        System.out.println("Un lycantrophe de rang " + getRangDomination() + " s'est séparé de sa meute.");
     }
 
     public void transformerEnHumain() {
