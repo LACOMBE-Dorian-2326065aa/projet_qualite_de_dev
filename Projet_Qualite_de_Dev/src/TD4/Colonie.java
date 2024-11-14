@@ -11,8 +11,20 @@ public class Colonie {
         this.meutes = new ArrayList<>();
     }
 
+    public ArrayList<Meute> getMeutes() {
+        return meutes;
+    }
+
+    public void setMeutes(ArrayList<Meute> meutes) {
+        this.meutes = meutes;
+    }
+
     public void ajouterMeute(Meute meute) {
         meutes.add(meute);
+    }
+
+    public void retirerMeute(Meute meute) {
+        meutes.remove(meute);
     }
 
     public void afficherLycanthropes() {
@@ -29,5 +41,28 @@ public class Colonie {
         }
     }
 
+    public void afficherMeutes() {
+        if (meutes.size() > 0) {
+            Iterator<Meute> meuteIterator = meutes.iterator();
+            System.out.println("Liste des meutes de la colonie : ");
+            int i = 1;
+            while (meuteIterator.hasNext()) {
+                Meute meute = meuteIterator.next();
+                System.out.println(i + " : " + meute.getNom());
+                ++i;
+            }
+        } else {
+            System.out.println("Il n'y a aucune meute dans cette colonie.\n");
+        }
+    }
+
+    public void creerMeute(String nom, String position) {
+        Meute meute = new Meute(nom, position);
+        ajouterMeute(meute);
+    }
+
+    public void lancerSimulation() {
+        // TODO
+    }
 
 }
