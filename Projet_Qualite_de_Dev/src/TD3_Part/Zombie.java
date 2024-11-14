@@ -12,4 +12,10 @@ public class Zombie extends Creature {
             super.setMorale(Math.max(super.getMorale() - 5, 0));
         }
     }
+
+    @Override
+    public void trepasser() {
+        super.trepasser();
+        regen();
+    }
 }

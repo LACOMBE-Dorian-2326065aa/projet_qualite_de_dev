@@ -2,7 +2,6 @@ package TD3_Part;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 public abstract class Creature {
     private String nom;
@@ -12,6 +11,7 @@ public abstract class Creature {
     private int age;
     private int morale;
     private List<String> maladies;
+    private int compteurHurlements = 0;
 
     public Creature(String nom, String sexe, double poids, double taille, int age) {
         this.nom = nom;
@@ -22,7 +22,6 @@ public abstract class Creature {
         this.morale = 100;
         this.maladies = new ArrayList<>();
     }
-
 
     public String getNom() {
         return nom;
@@ -80,33 +79,39 @@ public abstract class Creature {
         this.sexe = sexe;
     }
 
-    public void attendre(){
+    public void attendre() {
         this.morale--;
     }
 
-    public void hurler(){
-        if (this.morale <= 1){
-            System.out.println("RAAAAAAAAAAAAAAAAAAAAH");
+    public void hurler() {
+        if (this.morale <= 1) {
+            if (compteurHurlements <= 3) {
+                System.out.println(this.getNom() + " hurle, RAAAAAAAAAAAAAAAAAAAAH !");
+                compteurHurlements++;
+            }
+            if (compteurHurlements > 3) {
+                this.sEmporter();
+            }
         }
     }
 
-    public void sEmporter(){
-        //TODO
+    public void sEmporter() {
+        System.out.println(this.getNom() + " s'emporte et devient dangereux !");
     }
 
-    public void tomberMalade(String maladie){
+    public void tomberMalade(String maladie) {
         this.maladies.add(maladie);
     }
 
-    public void guerison(String maladie){
-            if(this.maladies.contains(maladie)) {
-                maladies.remove(maladie);
-                morale++;
-            }
+    public void guerison(String maladie) {
+        if (this.maladies.contains(maladie)) {
+            maladies.remove(maladie);
+            morale++;
+        }
     }
 
-    public void trepasser(){
-        if (maladies.size() >= 5){
+    public void trepasser() {
+        if (maladies.size() >= 5) {
             System.out.println("La créature " + this.getNom() + " a trépassée.");
         }
     }
