@@ -138,6 +138,7 @@ public class Lycanthrope {
     }
 
     public void contaminerLycan(){
+        // TODO
         System.out.println("Le lycanthrope contamine son équipe médical");
     }
 

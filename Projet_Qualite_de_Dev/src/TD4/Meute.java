@@ -59,14 +59,6 @@ public class Meute {
         this.nom = nom;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     public String getRang() {
         return rang;
     }

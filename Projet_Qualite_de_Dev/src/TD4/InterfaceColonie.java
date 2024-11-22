@@ -75,6 +75,23 @@ public class InterfaceColonie {
                 }
                 afficherMenu();
                 break;
+            case "4":
+                if (!colonie.getMeutes().isEmpty()) {
+                    int count = 0;
+                    for (Meute meute : colonie.getMeutes()) {
+                        for (Lycanthrope lycan : meute.getMeute()) {
+                            count++;
+                            lycan.afficherCaracteristiques();
+                        }
+                    }
+                    if (count == 0) {
+                        System.out.println("Il n'y a aucun lycanthrope.");
+                    }
+                } else {
+                    System.out.println("Il n'y a aucune meute.");
+                }
+                afficherMenu();
+                break;
             default:
                 System.out.println("Saisie invalide. Merci d'entrer le numéro de l'action à effectuer !");
                 afficherMenu();
