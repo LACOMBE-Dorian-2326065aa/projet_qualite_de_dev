@@ -9,8 +9,9 @@ public class HopitalFantastique {
     private List<ServiceMedical> services;
     private List<Medecin> medecins;
 
-    public HopitalFantastique(String nom) {
+    public HopitalFantastique(String nom, int nombreMaxServices) {
         this.nom = nom;
+        this.nombreMaxServices = nombreMaxServices;
         this.services = new ArrayList<>();
         this.medecins = new ArrayList<>();
     }
