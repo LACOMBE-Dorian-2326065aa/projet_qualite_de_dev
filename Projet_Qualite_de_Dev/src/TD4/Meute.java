@@ -68,6 +68,8 @@ public class Meute {
     }
 
     public void afficherLycanthropes() {
-        // TODO
+        for (int i = 0; i < meute.size(); i++) {
+            meute.get(i).afficherCaracteristiques();
+        }
     }
 }

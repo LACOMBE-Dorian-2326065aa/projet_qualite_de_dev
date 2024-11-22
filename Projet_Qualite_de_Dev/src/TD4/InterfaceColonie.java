@@ -42,9 +42,11 @@ public class InterfaceColonie {
                 "1 : Lister les lycanthropes\n" +
                 "2 : Créer un lycanthrope\n" +
                 "3 : Supprimer un lycanthrope\n" +
+                "4 : Faire hurler un lycanthrope\n" +
+                "5 : Faire s'accoupler le couple alpha\n" +
                 "-------------------------------------\n" +
                 "→ Entrez le numéro de l'action à effectuer :");
-        getAction();
+        getActionLycanthrope();
     }
 
     public void getAction() {
@@ -92,6 +94,18 @@ public class InterfaceColonie {
                 }
                 afficherMenu();
                 break;
+            case "5":
+                if (!colonie.getMeutes().isEmpty()) {
+                    System.out.println("Spécifiez le numéro de la meute à sélectionner :");
+                    colonie.afficherMeutes();
+                    int numero = getNumero(colonie.getMeutes().size());
+                    currentMeute = colonie.getMeutes().get(numero-1);
+                    afficherMenuMeute();
+                } else {
+                    System.out.println("Il n'y a aucune meute à sélectionner.");
+                    afficherMenu();
+                }
+                break;
             default:
                 System.out.println("Saisie invalide. Merci d'entrer le numéro de l'action à effectuer !");
                 afficherMenu();
@@ -107,31 +121,71 @@ public class InterfaceColonie {
                 break;
             case "2":
                 // TODO
-                System.out.println("Spécifiez le nom de la meute à créer :");
+                System.out.println("Spécifiez le nom du Lycanthrope à créer :");
                 String nom = scanner.nextLine();
-                System.out.println("Spécifiez la position de la meute à créer :");
-                String position = scanner.nextLine();
-                colonie.creerMeute(nom, position);
-                System.out.println("Meute créée avec succès !");
-                afficherMenu();
+                System.out.println("Spécifiez le sexe :\n1 : Femelle\n2 : Mâle");
+                boolean sexe = getNumero(2) == 1;
+                System.out.println("Spécifiez le rang :");
+                int i = 0;
+                for (char c : currentMeute.getRang().toCharArray()) {
+                    ++i;
+                    System.out.println(i + " " + c);
+                }
+                int indexOfRang = getNumero(i);
+                System.out.println("Spécifiez le facteur d'impétuosité (0 - 99) :");
+                int facteurImpetuosite = getNumero(99);
+                System.out.println("Spécifiez la force (0 - 99) :");
+                int force = getNumero(99);
+                System.out.println("Spécifiez la catégorie d'âge :\n1 : Jeune\n2 : Adulte\n3 : Vieux");
+                int choixAge = getNumero(3);
+                String categorieAge;
+                switch(choixAge) {
+                    case 1:
+                        categorieAge = Lycanthrope.JEUNE;
+                        break;
+                    case 2:
+                        categorieAge = Lycanthrope.ADULTE;
+                        break;
+                    case 3:
+                        categorieAge = Lycanthrope.VIEUX;
+                        break;
+                    default:
+                        categorieAge = Lycanthrope.JEUNE;
+                }
+                currentMeute.addLycanthrope(new Lycanthrope(currentMeute, nom, facteurImpetuosite, 5, currentMeute.getRang().toCharArray()[indexOfRang-1], 1, force, categorieAge, sexe));
+                System.out.println("Lycanthrope créé avec succès !");
+                afficherMenuMeute();
                 break;
             case "3":
-                // TODO
                 if (!colonie.getMeutes().isEmpty()) {
-                    System.out.println("Spécifiez le numéro de la meute à supprimer :");
+                    System.out.println("Spécifiez le numéro du lycanthrope à supprimer :");
                     colonie.afficherMeutes();
-                    int numero = getNumero(colonie.getMeutes().size());
-                    colonie.retirerMeute(colonie.getMeutes().get(numero-1));
-                    System.out.println("Meute supprimée avec succès !");
+                    int numero = getNumero(currentMeute.getMeute().size());
+                    currentMeute.removeLycanthrope(currentMeute.getMeute().get(numero-1));
+                    System.out.println("Lycanthrope supprimé avec succès !");
                 } else {
-                    System.out.println("Il n'y a aucune meute à supprimer.");
+                    System.out.println("Il n'y a aucun lycanthrope à supprimer.");
                 }
-                afficherMenu();
+                afficherMenuMeute();
                 break;
-            // TODO
             case "4":
-                currentMeute.afficherLycanthropes();
-                afficherMenu();
+                if (!colonie.getMeutes().isEmpty()) {
+                    System.out.println("Spécifiez le numéro du lycanthrope à faire hurler :");
+                    int count = 1;
+                    for (Lycanthrope lycan : currentMeute.getMeute()) {
+                        System.out.println(count + " : " + lycan.getNom());
+                        count++;
+                    }
+                    int numero = getNumero(currentMeute.getMeute().size());
+                    System.out.println("Spécifiez le numéro du hurlement :" +
+                            "\n1 : Appartenance" +
+                            "\n2 : Domination");
+                    int numeroH = getNumero(2);
+                    currentMeute.getMeute().get(numero-1).hurler(numeroH == 1 ? Hurlements.APPARTENANCE : Hurlements.DOMINATION);
+                } else {
+                    System.out.println("Il n'y a aucun lycanthrope à faire hurler.");
+                }
+                afficherMenuMeute();
                 break;
             case "5":
                 if (!colonie.getMeutes().isEmpty()) {
