@@ -19,7 +19,7 @@ public class Interface {
 
             switch (choix) {
                 case 1:
-                    afficherDetailsHopital();
+                    afficherDetailsHopital(scanner);
                     break;
                 case 2:
                     soignerCreatures();
@@ -75,8 +75,23 @@ public class Interface {
         hopital.ajouterMedecin(medecin2);
     }
 
-    private static void afficherDetailsHopital() {
-        hopital.afficherServices();
+    private static void afficherDetailsHopital(Scanner scanner) {
+        System.out.println("\n--- Liste des services médicaux ---");
+        int index = 1;
+        for (ServiceMedical service : hopital.getServices()) {
+            System.out.println(index + ". " + service.getNom());
+            index++;
+        }
+        System.out.print("Sélectionnez un service pour afficher les détails (entrez le numéro) : ");
+        int choixService = scanner.nextInt();
+        scanner.nextLine(); // Consommer la nouvelle ligne
+
+        if (choixService > 0 && choixService <= hopital.getServices().size()) {
+            ServiceMedical serviceSelectionne = hopital.getServices().get(choixService - 1);
+            serviceSelectionne.afficherDetails();
+        } else {
+            System.out.println("Choix invalide. Veuillez réessayer.");
+        }
     }
 
     private static void soignerCreatures() {
@@ -165,5 +180,4 @@ public class Interface {
     private static void quitter() {
         System.out.println("Merci d'avoir utilisé l'interface de l'Hôpital Fantastique. Au revoir !");
     }
-
 }

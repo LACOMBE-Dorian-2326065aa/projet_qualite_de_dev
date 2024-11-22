@@ -89,5 +89,9 @@ public class ServiceMedical {
         System.out.println("Capacité maximale: " + capaciteMax);
         System.out.println("Budget: " + budget);
         System.out.println("Nombre de créatures: " + capaciteActuelle);
+        System.out.println("Liste des créatures :");
+        for (Creature creature : creatures) {
+            System.out.println(" - " + creature.getNom() + " (" + creature.getClass().getSimpleName() + ")");
+        }
     }
 }
