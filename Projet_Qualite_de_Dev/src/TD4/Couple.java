@@ -25,7 +25,7 @@ public class Couple {
     public void reproduction() {
         Random r = new Random();
         for (int i = 1; i < r.nextInt(8); i++) {
-            Lycanthrope lycanthrope = new Lycanthrope(female.getMeute(), 1, 1, 'γ', 1, 1, "Jeune", r.nextInt(2) != 0);
+            Lycanthrope lycanthrope = new Lycanthrope(female.getMeute(), "test", 1, 1, 'γ', 1, 1, "Jeune", r.nextInt(2) != 0);
             female.getMeute().addLycanthrope(lycanthrope);
         }
     }
