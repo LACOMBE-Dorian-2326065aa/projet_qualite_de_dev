@@ -91,7 +91,11 @@ public class ServiceMedical {
         System.out.println("Nombre de créatures: " + capaciteActuelle);
         System.out.println("Liste des créatures :");
         for (Creature creature : creatures) {
-            System.out.println(" - " + creature.getNom() + " (" + creature.getClass().getSimpleName() + ")");
+            StringBuilder detailsCreature = new StringBuilder(" - " + creature.getNom() + " (" + creature.getClass().getSimpleName() + ")");
+            if (!creature.getMaladies().isEmpty()) {
+                detailsCreature.append(" - Malade : ").append(String.join(", ", creature.getMaladies()));
+            }
+            System.out.println(detailsCreature.toString());
         }
     }
 }
