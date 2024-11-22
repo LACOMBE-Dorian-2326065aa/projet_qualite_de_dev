@@ -165,4 +165,5 @@ public class Interface {
     private static void quitter() {
         System.out.println("Merci d'avoir utilisé l'interface de l'Hôpital Fantastique. Au revoir !");
     }
+
 }
