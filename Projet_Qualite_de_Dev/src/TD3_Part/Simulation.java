@@ -36,7 +36,7 @@ public class Simulation {
         service3.ajouterCreature(elfe1);
 
         // Affichage des détails de l'hôpital
-        hopital.afficherCreatures();
+        hopital.afficherServices();
 
         // Simulation des actions
         medecin1.examinerService(service1);

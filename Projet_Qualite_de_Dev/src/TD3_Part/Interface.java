@@ -76,7 +76,7 @@ public class Interface {
     }
 
     private static void afficherDetailsHopital() {
-        hopital.afficherCreatures();
+        hopital.afficherServices();
     }
 
     private static void soignerCreatures() {

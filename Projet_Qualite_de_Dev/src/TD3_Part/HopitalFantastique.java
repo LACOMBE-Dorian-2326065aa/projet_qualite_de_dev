@@ -73,10 +73,9 @@ public class HopitalFantastique {
         return totalCreatures;
     }
 
-    public void afficherCreatures() {
+    public void afficherServices() {
         for (ServiceMedical service : services) {
             System.out.println("Service : " + service.getNom());
-            service.afficherDetails();
         }
     }
 }
