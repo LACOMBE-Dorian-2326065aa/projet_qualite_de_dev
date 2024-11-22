@@ -6,7 +6,7 @@ public class Interface {
     private static HopitalFantastique hopital;
 
     public static void main(String[] args) {
-        hopital = new HopitalFantastique("Hôpital Fantastique");
+        hopital = new HopitalFantastique("Hôpital Fantastique", 10); // Par exemple, capacité maximale de 10 services
         initialiserHopital();
 
         Scanner scanner = new Scanner(System.in);

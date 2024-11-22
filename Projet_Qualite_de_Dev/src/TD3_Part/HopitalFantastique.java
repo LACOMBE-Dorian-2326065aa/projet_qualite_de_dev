@@ -2,7 +2,6 @@ package TD3_Part;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class HopitalFantastique {
     private String nom;
@@ -10,8 +9,9 @@ public class HopitalFantastique {
     private List<ServiceMedical> services;
     private List<Medecin> medecins;
 
-    public HopitalFantastique(String nom) {
+    public HopitalFantastique(String nom, int nombreMaxServices) {
         this.nom = nom;
+        this.nombreMaxServices = nombreMaxServices;
         this.services = new ArrayList<>();
         this.medecins = new ArrayList<>();
     }
@@ -31,7 +31,7 @@ public class HopitalFantastique {
 
     private void setNombreMaxServices(int nombreMaxServices) {
         this.nombreMaxServices = nombreMaxServices;
-    };
+    }
 
     public List<ServiceMedical> getServices() {
         return services;
@@ -79,5 +79,4 @@ public class HopitalFantastique {
             service.afficherDetails();
         }
     }
-
 }
