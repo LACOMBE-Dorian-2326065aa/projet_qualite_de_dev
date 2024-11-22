@@ -3,7 +3,7 @@ package TD3_Part;
 public class Simulation {
     public static void main(String[] args) {
         // Création de l'hôpital fantastique
-        HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique");
+        HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 10);
 
         // Création des services médicaux
         ServiceMedical service1 = new ServiceMedical("Service des Zombies", 500.0, 10, "100000");
@@ -36,7 +36,7 @@ public class Simulation {
         service3.ajouterCreature(elfe1);
 
         // Affichage des détails de l'hôpital
-        hopital.afficherCreatures();
+        hopital.afficherServices();
 
         // Simulation des actions
         medecin1.examinerService(service1);
