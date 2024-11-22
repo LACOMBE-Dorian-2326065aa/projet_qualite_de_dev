@@ -19,3 +19,4 @@ public class Zombie extends Creature {
         regen();
     }
 }
+
