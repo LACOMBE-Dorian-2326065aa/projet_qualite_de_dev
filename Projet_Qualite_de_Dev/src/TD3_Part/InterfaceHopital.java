@@ -2,20 +2,21 @@ package TD3_Part;
 
 import java.util.Scanner;
 
-public class Interface {
+public class InterfaceHopital {
     private static HopitalFantastique hopital;
 
-    public static void main(String[] args) {
-        hopital = new HopitalFantastique("Hôpital Fantastique", 10); // Par exemple, capacité maximale de 10 services
-        initialiserHopital();
+    public InterfaceHopital(HopitalFantastique hopital) {
+        InterfaceHopital.hopital = hopital;
+    }
 
+    public void init() {
         Scanner scanner = new Scanner(System.in);
         int choix;
 
         do {
             afficherMenu();
             choix = scanner.nextInt();
-            scanner.nextLine(); // Consommer la nouvelle ligne
+            scanner.nextLine();
 
             switch (choix) {
                 case 1:
@@ -56,7 +57,6 @@ public class Interface {
     }
 
     private static void initialiserHopital() {
-        // Création des services médicaux
         ServiceMedical service1 = new ServiceMedical("Service des Zombies", 500.0, 10, "100000");
         ServiceMedical service2 = new ServiceMedical("Service des Vampires", 300.0, 5, "50000");
         ServiceMedical service3 = new ServiceMedical("Service des Orques", 400.0, 8, "75000");

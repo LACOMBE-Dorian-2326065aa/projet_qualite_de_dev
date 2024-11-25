@@ -16,7 +16,6 @@ public class HopitalFantastique {
         this.medecins = new ArrayList<>();
     }
 
-    // Getters et setters
     public String getNom() {
         return nom;
     }
@@ -76,6 +75,16 @@ public class HopitalFantastique {
     public void afficherServices() {
         for (ServiceMedical service : services) {
             System.out.println("Service : " + service.getNom());
+        }
+    }
+
+    public void afficherCreatures() {
+        System.out.println("= Liste des créatures de l'hôpital =");
+        for (ServiceMedical service : services) {
+            System.out.println("Service : " + service.getNom());
+            for (Creature creature : service.getCreatures()) {
+                System.out.println(" - " + creature.getNom());
+            }
         }
     }
 }
