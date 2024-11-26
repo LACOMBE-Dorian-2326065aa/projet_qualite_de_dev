@@ -4,45 +4,52 @@ import java.util.Scanner;
 
 public class InterfaceHopital {
     private static HopitalFantastique hopital;
+    private int actions;
+    private final Scanner scanner;
 
     public InterfaceHopital(HopitalFantastique hopital) {
         InterfaceHopital.hopital = hopital;
+        actions = 3;
+        scanner = new Scanner(System.in);
     }
 
     public void init() {
-        Scanner scanner = new Scanner(System.in);
-        int choix;
+        actions = 3;
+        String choix;
 
         do {
             afficherMenu();
-            choix = scanner.nextInt();
-            scanner.nextLine();
+            choix = scanner.nextLine();
 
             switch (choix) {
-                case 1:
+                case "1":
                     afficherDetailsHopital(scanner);
                     break;
-                case 2:
+                case "2":
                     soignerCreatures();
+                    actions--;
                     break;
-                case 3:
+                case "3":
                     examinerService(scanner);
                     break;
-                case 4:
+                case "4":
                     ajouterCreature(scanner);
+                    actions--;
                     break;
-                case 5:
+                case "5":
                     tomberMalade(scanner);
+                    actions--;
                     break;
-                case 6:
+                case "6":
+                    actions = 0;
+                    break;
+                case "7":
                     quitter();
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
-        } while (choix != 6);
-
-        scanner.close();
+        } while (choix != "7" && actions > 0);
     }
 
     private static void afficherMenu() {
@@ -52,7 +59,8 @@ public class InterfaceHopital {
         System.out.println("3. Examiner un service médical");
         System.out.println("4. Ajouter une créature à un service médical");
         System.out.println("5. Faire tomber malade une créature");
-        System.out.println("6. Quitter");
+        System.out.println("6. Passer le tour");
+        System.out.println("7. Quitter");
         System.out.print("Entrez votre choix : ");
     }
 
@@ -168,7 +176,8 @@ public class InterfaceHopital {
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
                 if (creature.getNom().equalsIgnoreCase(nomCreature)) {
-                    creature.tomberMalade(maladie);
+                    // TODO
+//                    creature.tomberMalade(maladie);
                     System.out.println("La créature " + nomCreature + " est tombée malade de " + maladie);
                     return;
                 }

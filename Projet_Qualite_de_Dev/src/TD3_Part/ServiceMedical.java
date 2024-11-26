@@ -79,7 +79,11 @@ public class ServiceMedical {
 
     public void soignerCreatures() {
         for (Creature creature : creatures) {
-            creature.guerison("MDC");
+            for (Maladie maladie : creature.getMaladies()) {
+                if (maladie != null) {
+                    creature.guerison(maladie);
+                }
+            }
         }
     }
 
@@ -93,7 +97,21 @@ public class ServiceMedical {
         for (Creature creature : creatures) {
             StringBuilder detailsCreature = new StringBuilder(" - " + creature.getNom() + " (" + creature.getClass().getSimpleName() + ")");
             if (!creature.getMaladies().isEmpty()) {
-                detailsCreature.append(" - Malade : ").append(String.join(", ", creature.getMaladies()));
+                for (Maladie maladie : creature.getMaladies()) {
+                    detailsCreature.append(" - Malade : ").append(" " + maladie.getNomComplet() + " (" + maladie.getNiveauActuel() + "/" + maladie.getNiveauMax() + ")");
+                }
+            }
+            System.out.println(detailsCreature.toString());
+        }
+    }
+
+    public void afficherCreatures() {
+        for (Creature creature : creatures) {
+            StringBuilder detailsCreature = new StringBuilder(" - " + creature.getNom() + " (" + creature.getClass().getSimpleName() + ")");
+            if (!creature.getMaladies().isEmpty()) {
+                for (Maladie maladie : creature.getMaladies()) {
+                    detailsCreature.append(" - Malade : ").append(" " + maladie.getNomComplet() + " (" + maladie.getNiveauActuel() + "/" + maladie.getNiveauMax() + ")");
+                }
             }
             System.out.println(detailsCreature.toString());
         }

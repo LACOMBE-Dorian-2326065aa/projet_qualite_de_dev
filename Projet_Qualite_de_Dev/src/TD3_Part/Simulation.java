@@ -1,5 +1,7 @@
 package TD3_Part;
 
+import java.util.Random;
+
 public class Simulation {
     public static void main(String[] args) {
         // Création de l'hôpital fantastique
@@ -30,31 +32,35 @@ public class Simulation {
         service3.ajouterCreature(elfe1);
 
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
+        Random rand = new Random();
 
         while (true) {
             System.out.println("Il y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital");
             hopital.afficherCreatures();
             interfaceHopital.init();
-        }
 
-//        hopital.afficherServices();
-//
-//        medecin1.examinerService(service1);
-//        medecin2.soigner(service2);
-//
-//        zombie1.tomberMalade("Grippe");
-//        vampire1.tomberMalade("Anémie");
-//        orque1.tomberMalade("Infection");
-//        elfe1.tomberMalade("Dépression");
-//
-//        zombie1.regen();
-//        vampire1.regen();
-//        orque1.attendre();
-//        elfe1.attendre();
-//
-//        zombie1.trepasser();
-//        vampire1.trepasserVampire();
-//        orque1.trepasserOrques();
-//        elfe1.trepasserElfe();
+            for (ServiceMedical service : hopital.getServices()) {
+                for (Creature creature : service.getCreatures()) {
+                    double proba = Math.random();
+
+                    System.out.println(proba);
+
+                    if (proba <= 0.5) {
+                        if (creature.getMaladies().isEmpty())
+                            creature.tomberMalade(new Maladie(Maladie.MDC, "MDC", 10));
+                    }
+
+                    proba = Math.random();
+
+                    System.out.println(proba);
+
+                    if (proba <= 0.5) {
+                        if (!creature.getMaladies().isEmpty()) {
+                            creature.getMaladies().get(rand.nextInt(creature.getMaladies().size())).augmenterNiveau();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

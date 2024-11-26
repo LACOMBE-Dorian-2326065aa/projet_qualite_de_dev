@@ -5,11 +5,11 @@ public class Maladie {
     private String nomAbrege;
     private int niveauActuel;
     private int niveauMax;
-    public final String MDC = "Maladie débilitante chronique";
-    public final String FOMO = "Syndrome fear of missing out";
-    public final String DRS = "Dépendance aux réseaux sociaux";
-    public final String PEC = "Porphyrie érythropoïétique congénitale";
-    public  final String ZPL = "Zoopathie paraphrénique lycanthropique";
+    public static final String MDC = "Maladie débilitante chronique";
+    public static final String FOMO = "Syndrome fear of missing out";
+    public static final String DRS = "Dépendance aux réseaux sociaux";
+    public static final String PEC = "Porphyrie érythropoïétique congénitale";
+    public static final String ZPL = "Zoopathie paraphrénique lycanthropique";
 
     public Maladie(String nomComplet, String nomAbrege, int niveauMax) {
         this.nomComplet = nomComplet;

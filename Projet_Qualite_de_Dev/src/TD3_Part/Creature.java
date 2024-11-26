@@ -10,7 +10,7 @@ public abstract class Creature {
     private double taille;
     private int age;
     private int morale;
-    private List<String> maladies;
+    private List<Maladie> maladies;
     private int compteurHurlements = 0;
 
     public Creature(String nom, String sexe, double poids, double taille, int age) {
@@ -39,11 +39,11 @@ public abstract class Creature {
         this.morale = morale;
     }
 
-    public List<String> getMaladies() {
+    public List<Maladie> getMaladies() {
         return maladies;
     }
 
-    public void setMaladies(List<String> maladies) {
+    public void setMaladies(List<Maladie> maladies) {
         this.maladies = maladies;
     }
 
@@ -99,11 +99,11 @@ public abstract class Creature {
         System.out.println(this.getNom() + " s'emporte et devient dangereux !");
     }
 
-    public void tomberMalade(String maladie) {
+    public void tomberMalade(Maladie maladie) {
         this.maladies.add(maladie);
     }
 
-    public void guerison(String maladie) {
+    public void guerison(Maladie maladie) {
         if (this.maladies.contains(maladie)) {
             maladies.remove(maladie);
             morale++;

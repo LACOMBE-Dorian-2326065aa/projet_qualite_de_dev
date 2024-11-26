@@ -82,9 +82,7 @@ public class HopitalFantastique {
         System.out.println("= Liste des créatures de l'hôpital =");
         for (ServiceMedical service : services) {
             System.out.println("Service : " + service.getNom());
-            for (Creature creature : service.getCreatures()) {
-                System.out.println(" - " + creature.getNom());
-            }
+            service.afficherCreatures();
         }
     }
 }
