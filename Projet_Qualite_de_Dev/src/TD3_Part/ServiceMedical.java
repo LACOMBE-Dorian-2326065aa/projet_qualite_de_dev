@@ -123,4 +123,8 @@ public class ServiceMedical {
             System.out.println(detailsCreature.toString());
         }
     }
+
+    public void reviserBudget() {
+
+    }
 }
