@@ -34,33 +34,51 @@ public class Simulation {
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();
 
-        while (true) {
-            System.out.println("Il y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital");
-            hopital.afficherCreatures();
-            interfaceHopital.init();
+        int interval = 60;
 
-            for (ServiceMedical service : hopital.getServices()) {
-                for (Creature creature : service.getCreatures()) {
-                    double proba = Math.random();
-
-                    System.out.println(proba);
-
-                    if (proba <= 0.5) {
-                        if (creature.getMaladies().isEmpty())
-                            creature.tomberMalade(new Maladie(Maladie.MDC, "MDC", 10));
-                    }
-
-                    proba = Math.random();
-
-                    System.out.println(proba);
-
-                    if (proba <= 0.5) {
-                        if (!creature.getMaladies().isEmpty()) {
-                            creature.getMaladies().get(rand.nextInt(creature.getMaladies().size())).augmenterNiveau();
-                        }
-                    }
+        Thread thread = new Thread(() -> {
+            int count = 0;
+            while(true) {
+                System.out.println("Lambda : ");
+                try {
+                    Thread.sleep(interval * 1000L);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
-        }
+        });
+        thread.start();
+
+        Thread thread2 = new Thread(() -> {
+            while (true) {
+//                System.out.println("Il y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital");
+//                hopital.afficherCreatures();
+                interfaceHopital.init();
+
+//                for (ServiceMedical service : hopital.getServices()) {
+//                    for (Creature creature : service.getCreatures()) {
+//                        double proba = Math.random();
+//
+//                        System.out.println(proba);
+//
+//                        if (proba <= 0.5) {
+//                            if (creature.getMaladies().isEmpty())
+//                                creature.tomberMalade(new Maladie(Maladie.MDC, "MDC", 10));
+//                        }
+//
+//                        proba = Math.random();
+//
+//                        System.out.println(proba);
+//
+//                        if (proba <= 0.5) {
+//                            if (!creature.getMaladies().isEmpty()) {
+//                                creature.getMaladies().get(rand.nextInt(creature.getMaladies().size())).augmenterNiveau();
+//                            }
+//                        }
+//                    }
+//                }
+            }
+        });
+        thread2.start();
     }
 }
