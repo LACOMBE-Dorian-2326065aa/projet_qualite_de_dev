@@ -1,5 +1,7 @@
 package TD3_Part;
 
+import TD3_Part.creatures.Creature;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,11 @@ public class ServiceMedical {
     private int capaciteActuelle;
     private List<Creature> creatures;
     private String budget;
+
+    public static final String INEXISTANT = "Inexistant";
+    public static final String MEDIOCRE = "Médiocre";
+    public static final String INSUFFISANT = "Insuffisant";
+    public static final String FAIBLE = "Faible";
 
     public ServiceMedical(String nom, double superficie, int capaciteMax, String budget) {
         this.nom = nom;

@@ -10,6 +10,7 @@ public class Maladie {
     public static final String DRS = "Dépendance aux réseaux sociaux";
     public static final String PEC = "Porphyrie érythropoïétique congénitale";
     public static final String ZPL = "Zoopathie paraphrénique lycanthropique";
+    public static final String NDMAD = "Nécrose Dégénérative des Membres et des Articulations Dorsales";
 
     public Maladie(String nomComplet, String nomAbrege, int niveauMax) {
         this.nomComplet = nomComplet;

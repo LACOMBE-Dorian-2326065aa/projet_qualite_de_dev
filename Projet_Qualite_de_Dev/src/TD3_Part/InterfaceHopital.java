@@ -1,5 +1,11 @@
 package TD3_Part;
 
+import TD3_Part.creatures.Creature;
+import TD3_Part.creatures.specific.Elfe;
+import TD3_Part.creatures.specific.Orques;
+import TD3_Part.creatures.specific.Vampire;
+import TD3_Part.creatures.specific.Zombie;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -198,16 +204,31 @@ public class InterfaceHopital {
 
     public static void transfererCreature() {
         System.out.println("Choisissez une créature à transférer :");
-        int count = 0;
+        int count = 1;
         ArrayList<Creature> creatures = new ArrayList<Creature>();
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
                 System.out.println(count + " : " + creature.getNom());
                 creatures.add(creature);
+                count++;
             }
         }
         int choixCreature = getNumero(count);
-        Creature creatureChosen = creatures.get(choixCreature);
-
+        Creature creatureChosen = creatures.get(choixCreature-1);
+        int count2 = 1;
+        ServiceMedical initialService = null;
+        for (ServiceMedical service : hopital.getServices()) {
+            System.out.println(count2 + " : " + service.getNom());
+            if (service.getCreatures().contains(creatureChosen)) {
+                initialService = service;
+                continue;
+            }
+            count2++;
+        }
+        int choixService = getNumero(count2);
+        ServiceMedical newService = hopital.getServices().get(choixService-1);
+        initialService.getCreatures().remove(creatureChosen);
+        newService.getCreatures().add(creatureChosen);
+        System.out.println("La créature " + creatureChosen.getNom() + " a été déplacée de " + initialService.getNom() + " à " + newService.getNom() + " !");
     }
 }

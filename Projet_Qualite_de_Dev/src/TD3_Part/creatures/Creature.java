@@ -1,7 +1,11 @@
-package TD3_Part;
+package TD3_Part.creatures;
+
+import TD3_Part.Maladie;
+import TD3_Part.ServiceMedical;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Creature {
     private String nom;
@@ -9,9 +13,10 @@ public abstract class Creature {
     private double poids;
     private double taille;
     private int age;
-    private int morale;
+    private int moral;
     private List<Maladie> maladies;
-    private int compteurHurlements = 0;
+    private ServiceMedical serviceMedical;
+    private static Random random = new Random();
 
     public Creature(String nom, String sexe, double poids, double taille, int age) {
         this.nom = nom;
@@ -19,8 +24,16 @@ public abstract class Creature {
         this.poids = poids;
         this.taille = taille;
         this.age = age;
-        this.morale = 100;
+        this.moral = 100;
         this.maladies = new ArrayList<>();
+    }
+
+    public ServiceMedical getServiceMedical() {
+        return serviceMedical;
+    }
+
+    public void setServiceMedical(ServiceMedical serviceMedical) {
+        this.serviceMedical = serviceMedical;
     }
 
     public String getNom() {
@@ -31,12 +44,12 @@ public abstract class Creature {
         this.nom = nom;
     }
 
-    public int getMorale() {
-        return morale;
+    public int getMoral() {
+        return moral;
     }
 
-    public void setMorale(int morale) {
-        this.morale = morale;
+    public void setMoral(int moral) {
+        this.moral = moral;
     }
 
     public List<Maladie> getMaladies() {
@@ -80,18 +93,12 @@ public abstract class Creature {
     }
 
     public void attendre() {
-        this.morale--;
+        this.moral--;
     }
 
     public void hurler() {
-        if (this.morale <= 1) {
-            if (compteurHurlements <= 3) {
-                System.out.println(this.getNom() + " hurle, RAAAAAAAAAAAAAAAAAAAAH !");
-                compteurHurlements++;
-            }
-            if (compteurHurlements > 3) {
-                this.sEmporter();
-            }
+        if (this.moral <= 1) {
+            System.out.println(this.getNom() + " hurle, RAAAAAAAAAAAAAAAAAAAAH !");
         }
     }
 
@@ -106,13 +113,22 @@ public abstract class Creature {
     public void guerison(Maladie maladie) {
         if (this.maladies.contains(maladie)) {
             maladies.remove(maladie);
-            morale++;
+            moral += 3;
         }
     }
 
     public void trepasser() {
-        if (maladies.size() >= 5) {
-            System.out.println("La créature " + this.getNom() + " a trépassée.");
+        if (Math.random() <= 0.6) {
+            if (!getMaladies().isEmpty()) {
+                int randomIndexMaladie = random.nextInt(getMaladies().size());
+                Maladie maladie = getMaladies().get(randomIndexMaladie);
+                int randomIndexCreatureAContaminer = random.nextInt(getServiceMedical().getCreatures().size());
+                Creature creatureToContamine = getServiceMedical().getCreatures().get(randomIndexCreatureAContaminer);
+
+                creatureToContamine.tomberMalade(maladie);
+
+                System.out.println(getNom() + " a contaminé " + creatureToContamine.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
+            }
         }
     }
 }

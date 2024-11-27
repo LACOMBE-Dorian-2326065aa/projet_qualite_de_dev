@@ -1,5 +1,10 @@
 package TD3_Part;
 
+import TD3_Part.creatures.specific.Elfe;
+import TD3_Part.creatures.specific.Orques;
+import TD3_Part.creatures.specific.Vampire;
+import TD3_Part.creatures.specific.Zombie;
+
 import java.util.Random;
 
 public class Simulation {
@@ -16,10 +21,8 @@ public class Simulation {
         hopital.ajouterService(service3);
 
         Medecin medecin1 = new Medecin("Dr. Frankenstein", "Homme", 45);
-        Medecin medecin2 = new Medecin("Dr. Acula", "Femme", 38);
 
         hopital.ajouterMedecin(medecin1);
-        hopital.ajouterMedecin(medecin2);
 
         Zombie zombie1 = new Zombie("Zombie1", "Homme", 70.0, 1.8, 30);
         Vampire vampire1 = new Vampire("Vampire1", "Femme", 65.0, 1.75, 120);
