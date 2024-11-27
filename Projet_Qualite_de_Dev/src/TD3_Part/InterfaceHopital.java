@@ -1,16 +1,16 @@
 package TD3_Part;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InterfaceHopital {
     private static HopitalFantastique hopital;
-    private int actions;
-    private final Scanner scanner;
+    private static int actions;
+    private static final Scanner scanner = new Scanner(System.in);
 
     public InterfaceHopital(HopitalFantastique hopital) {
         InterfaceHopital.hopital = hopital;
         actions = 3;
-        scanner = new Scanner(System.in);
     }
 
     public void init() {
@@ -23,64 +23,43 @@ public class InterfaceHopital {
 
             switch (choix) {
                 case "1":
-                    afficherDetailsHopital(scanner);
-                    break;
-                case "2":
                     soignerCreatures();
                     actions--;
                     break;
-                case "3":
-                    examinerService(scanner);
+                case "2":
+                    examinerService();
+                    actions--;
                     break;
-                case "4":
+                case "3":
                     ajouterCreature(scanner);
                     actions--;
                     break;
-                case "5":
-                    tomberMalade(scanner);
+                case "4":
+                    transfererCreature();
                     actions--;
                     break;
-                case "6":
+                case "5":
                     actions = 0;
                     break;
-                case "7":
+                case "6":
                     quitter();
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
-        } while (choix != "7" && actions > 0);
+        } while (choix != "6" && actions > 0);
+        System.out.println("Vous n'avez plus d'action disponible.");
     }
 
     private static void afficherMenu() {
         System.out.println("\n--- Menu de l'Hôpital Fantastique ---");
-        System.out.println("1. Afficher les détails de l'hôpital");
-        System.out.println("2. Soigner toutes les créatures");
-        System.out.println("3. Examiner un service médical");
-        System.out.println("4. Ajouter une créature à un service médical");
-        System.out.println("5. Faire tomber malade une créature");
-        System.out.println("6. Passer le tour");
-        System.out.println("7. Quitter");
+        System.out.println("1. Soigner toutes les créatures d'un service médical (1 action)");
+        System.out.println("2. Examiner un service médical (1 action)");
+        System.out.println("3. Réviser le budget d'un service médical (1 action)");
+        System.out.println("4. Transférer une créature d'un service médical à un autre (1 action)");
+        System.out.println("5. Passer le tour");
+        System.out.println("6. Quitter");
         System.out.print("Entrez votre choix : ");
-    }
-
-    private static void initialiserHopital() {
-        ServiceMedical service1 = new ServiceMedical("Service des Zombies", 500.0, 10, "100000");
-        ServiceMedical service2 = new ServiceMedical("Service des Vampires", 300.0, 5, "50000");
-        ServiceMedical service3 = new ServiceMedical("Service des Orques", 400.0, 8, "75000");
-
-        // Ajout des services à l'hôpital
-        hopital.ajouterService(service1);
-        hopital.ajouterService(service2);
-        hopital.ajouterService(service3);
-
-        // Création des médecins
-        Medecin medecin1 = new Medecin("Dr. Frankenstein", "Homme", 45);
-        Medecin medecin2 = new Medecin("Dr. Acula", "Femme", 38);
-
-        // Ajout des médecins à l'hôpital
-        hopital.ajouterMedecin(medecin1);
-        hopital.ajouterMedecin(medecin2);
     }
 
     private static void afficherDetailsHopital(Scanner scanner) {
@@ -109,16 +88,20 @@ public class InterfaceHopital {
         System.out.println("Toutes les créatures ont été soignées.");
     }
 
-    private static void examinerService(Scanner scanner) {
-        System.out.print("Entrez le nom du service à examiner : ");
-        String nomService = scanner.nextLine();
-        for (ServiceMedical service : hopital.getServices()) {
-            if (service.getNom().equalsIgnoreCase(nomService)) {
-                service.afficherDetails();
-                return;
-            }
+    private static void examinerService() {
+        if (hopital.getServices().isEmpty()) {
+            System.out.println("Il n'y a aucun service.");
+            return;
         }
-        System.out.println("Service non trouvé.");
+        System.out.print("Quel service voulez-vous examiner : ");
+        int count = 1;
+        for (ServiceMedical service : hopital.getServices()) {
+            System.out.println(count + " : " + service.getNom());
+            count++;
+        }
+        int choix = getNumero(count);
+        hopital.getServices().get(choix).afficherDetails();
+        actions--;
     }
 
     private static void ajouterCreature(Scanner scanner) {
@@ -188,5 +171,43 @@ public class InterfaceHopital {
 
     private static void quitter() {
         System.out.println("Merci d'avoir utilisé l'interface de l'Hôpital Fantastique. Au revoir !");
+    }
+
+    public static int getNumero(int max) {
+        String input;
+        int number = -1;
+
+        while (true) {
+            input = scanner.nextLine();
+
+            if (input.matches("\\d+")) {
+                number = Integer.parseInt(input);
+
+                if (number >= 1 && number <= max) {
+                    break;
+                } else {
+                    System.out.println("Erreur : le nombre doit être entre 1 et " + max + ".");
+                }
+            } else {
+                System.out.println("Erreur : entrez un nombre entier valide.");
+            }
+        }
+
+        return number;
+    }
+
+    public static void transfererCreature() {
+        System.out.println("Choisissez une créature à transférer :");
+        int count = 0;
+        ArrayList<Creature> creatures = new ArrayList<Creature>();
+        for (ServiceMedical service : hopital.getServices()) {
+            for (Creature creature : service.getCreatures()) {
+                System.out.println(count + " : " + creature.getNom());
+                creatures.add(creature);
+            }
+        }
+        int choixCreature = getNumero(count);
+        Creature creatureChosen = creatures.get(choixCreature);
+
     }
 }

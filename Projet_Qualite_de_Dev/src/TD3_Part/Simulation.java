@@ -37,9 +37,9 @@ public class Simulation {
         int interval = 60;
 
         Thread thread = new Thread(() -> {
-            int count = 0;
             while(true) {
-                System.out.println("Lambda : ");
+                System.out.println("Il y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital");
+                hopital.afficherCreatures();
                 try {
                     Thread.sleep(interval * 1000L);
                 } catch (InterruptedException e) {
@@ -51,8 +51,6 @@ public class Simulation {
 
         Thread thread2 = new Thread(() -> {
             while (true) {
-//                System.out.println("Il y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital");
-//                hopital.afficherCreatures();
                 interfaceHopital.init();
 
 //                for (ServiceMedical service : hopital.getServices()) {
