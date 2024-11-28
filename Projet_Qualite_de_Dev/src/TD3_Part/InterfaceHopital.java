@@ -1,11 +1,6 @@
 package TD3_Part;
 
 import TD3_Part.creatures.Creature;
-import TD3_Part.creatures.specific.Elfe;
-import TD3_Part.creatures.specific.Orques;
-import TD3_Part.creatures.specific.Vampire;
-import TD3_Part.creatures.specific.Zombie;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,7 +32,7 @@ public class InterfaceHopital {
                     actions--;
                     break;
                 case "3":
-                    ajouterCreature(scanner);
+                    reviserBudget();
                     actions--;
                     break;
                 case "4":
@@ -45,15 +40,16 @@ public class InterfaceHopital {
                     actions--;
                     break;
                 case "5":
+                    System.out.println("Tour passé.");
                     actions = 0;
                     break;
                 case "6":
                     quitter();
-                    break;
+                    return;
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
-        } while (choix != "6" && actions > 0);
+        } while (!choix.equals("6") && actions > 0);
         System.out.println("Vous n'avez plus d'action disponible.");
     }
 
@@ -65,26 +61,7 @@ public class InterfaceHopital {
         System.out.println("4. Transférer une créature d'un service médical à un autre (1 action)");
         System.out.println("5. Passer le tour");
         System.out.println("6. Quitter");
-        System.out.print("Entrez votre choix : ");
-    }
-
-    private static void afficherDetailsHopital(Scanner scanner) {
-        System.out.println("\n--- Liste des services médicaux ---");
-        int index = 1;
-        for (ServiceMedical service : hopital.getServices()) {
-            System.out.println(index + ". " + service.getNom());
-            index++;
-        }
-        System.out.print("Sélectionnez un service pour afficher les détails (entrez le numéro) : ");
-        int choixService = scanner.nextInt();
-        scanner.nextLine(); // Consommer la nouvelle ligne
-
-        if (choixService > 0 && choixService <= hopital.getServices().size()) {
-            ServiceMedical serviceSelectionne = hopital.getServices().get(choixService - 1);
-            serviceSelectionne.afficherDetails();
-        } else {
-            System.out.println("Choix invalide. Veuillez réessayer.");
-        }
+        System.out.println("Entrez votre choix : ");
     }
 
     private static void soignerCreatures() {
@@ -96,83 +73,69 @@ public class InterfaceHopital {
 
     private static void examinerService() {
         if (hopital.getServices().isEmpty()) {
-            System.out.println("Il n'y a aucun service.");
+            System.out.println("Aucun service médical disponible.");
             return;
         }
         System.out.print("Quel service voulez-vous examiner : ");
         int count = 1;
         for (ServiceMedical service : hopital.getServices()) {
-            System.out.println(count + " : " + service.getNom());
+            System.out.println(count + ". " + service.getNom());
             count++;
         }
         int choix = getNumero(count);
-        hopital.getServices().get(choix).afficherDetails();
-        actions--;
+        hopital.getServices().get(choix - 1).afficherDetails();
     }
 
-    private static void ajouterCreature(Scanner scanner) {
-        System.out.print("Entrez le type de créature (Zombie, Vampire, Orques, Elfe) : ");
-        String type = scanner.nextLine();
-        System.out.print("Entrez le nom de la créature : ");
-        String nom = scanner.nextLine();
-        System.out.print("Entrez le sexe de la créature : ");
-        String sexe = scanner.nextLine();
-        System.out.print("Entrez le poids de la créature : ");
-        double poids = scanner.nextDouble();
-        System.out.print("Entrez la taille de la créature : ");
-        double taille = scanner.nextDouble();
-        System.out.print("Entrez l'âge de la créature : ");
-        int age = scanner.nextInt();
-        scanner.nextLine(); // Consommer la nouvelle ligne
-
-        Creature creature = null;
-        switch (type.toLowerCase()) {
-            case "zombie":
-                creature = new Zombie(nom, sexe, poids, taille, age);
-                break;
-            case "vampire":
-                creature = new Vampire(nom, sexe, poids, taille, age);
-                break;
-            case "orques":
-                creature = new Orques(nom, sexe, poids, taille, age);
-                break;
-            case "elfe":
-                creature = new Elfe(nom, sexe, poids, taille, age);
-                break;
-            default:
-                System.out.println("Type de créature invalide.");
-                return;
+    private static void reviserBudget() {
+        if (hopital.getServices().isEmpty()) {
+            System.out.println("Aucun service médical disponible.");
+            return;
         }
-
-        System.out.print("Entrez le nom du service médical : ");
-        String nomService = scanner.nextLine();
+        System.out.print("Quel service voulez-vous réviser le budget : ");
+        int count = 1;
         for (ServiceMedical service : hopital.getServices()) {
-            if (service.getNom().equalsIgnoreCase(nomService)) {
-                service.ajouterCreature(creature);
-                System.out.println("Créature ajoutée au service " + nomService);
-                return;
-            }
+            System.out.println(count + ". " + service.getNom());
+            count++;
         }
-        System.out.println("Service non trouvé.");
+        int choix = getNumero(count);
+        ServiceMedical service = hopital.getServices().get(choix - 1);
+        System.out.print("Entrez le nouveau budget pour " + service.getNom() + " : ");
+        String budget = scanner.nextLine();
+        service.setBudget(budget);
+        System.out.println("Le budget de " + service.getNom() + " a été révisé à " + budget);
     }
 
-    private static void tomberMalade(Scanner scanner) {
-        System.out.print("Entrez le nom de la créature : ");
-        String nomCreature = scanner.nextLine();
-        System.out.print("Entrez le nom de la maladie : ");
-        String maladie = scanner.nextLine();
-
+    private static void transfererCreature() {
+        System.out.println("Choisissez une créature à transférer :");
+        int count = 1;
+        ArrayList<Creature> creatures = new ArrayList<>();
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
-                if (creature.getNom().equalsIgnoreCase(nomCreature)) {
-                    // TODO
-//                    creature.tomberMalade(maladie);
-                    System.out.println("La créature " + nomCreature + " est tombée malade de " + maladie);
-                    return;
-                }
+                System.out.println(count + ". " + creature.getNom() + " (" + service.getNom() + ")");
+                creatures.add(creature);
+                count++;
             }
         }
-        System.out.println("Créature non trouvée.");
+        int choixCreature = getNumero(count);
+        Creature creatureChosen = creatures.get(choixCreature - 1);
+        int count2 = 1;
+        ServiceMedical initialService = null;
+        for (ServiceMedical service : hopital.getServices()) {
+            if (service.getCreatures().contains(creatureChosen)) {
+                initialService = service;
+                break;
+            }
+        }
+        System.out.println("Choisissez le service médical de destination :");
+        for (ServiceMedical service : hopital.getServices()) {
+            System.out.println(count2 + ". " + service.getNom());
+            count2++;
+        }
+        int choixService = getNumero(count2);
+        ServiceMedical newService = hopital.getServices().get(choixService - 1);
+        initialService.getCreatures().remove(creatureChosen);
+        newService.getCreatures().add(creatureChosen);
+        System.out.println("La créature " + creatureChosen.getNom() + " a été déplacée de " + initialService.getNom() + " à " + newService.getNom() + " !");
     }
 
     private static void quitter() {
@@ -185,50 +148,18 @@ public class InterfaceHopital {
 
         while (true) {
             input = scanner.nextLine();
-
-            if (input.matches("\\d+")) {
+            try {
                 number = Integer.parseInt(input);
-
-                if (number >= 1 && number <= max) {
+                if (number > 0 && number <= max) {
                     break;
                 } else {
-                    System.out.println("Erreur : le nombre doit être entre 1 et " + max + ".");
+                    System.out.println("Veuillez entrer un numéro valide.");
                 }
-            } else {
-                System.out.println("Erreur : entrez un nombre entier valide.");
+            } catch (NumberFormatException e) {
+                System.out.println("Veuillez entrer un numéro valide.");
             }
         }
 
         return number;
-    }
-
-    public static void transfererCreature() {
-        System.out.println("Choisissez une créature à transférer :");
-        int count = 1;
-        ArrayList<Creature> creatures = new ArrayList<Creature>();
-        for (ServiceMedical service : hopital.getServices()) {
-            for (Creature creature : service.getCreatures()) {
-                System.out.println(count + " : " + creature.getNom());
-                creatures.add(creature);
-                count++;
-            }
-        }
-        int choixCreature = getNumero(count);
-        Creature creatureChosen = creatures.get(choixCreature-1);
-        int count2 = 1;
-        ServiceMedical initialService = null;
-        for (ServiceMedical service : hopital.getServices()) {
-            System.out.println(count2 + " : " + service.getNom());
-            if (service.getCreatures().contains(creatureChosen)) {
-                initialService = service;
-                continue;
-            }
-            count2++;
-        }
-        int choixService = getNumero(count2);
-        ServiceMedical newService = hopital.getServices().get(choixService-1);
-        initialService.getCreatures().remove(creatureChosen);
-        newService.getCreatures().add(creatureChosen);
-        System.out.println("La créature " + creatureChosen.getNom() + " a été déplacée de " + initialService.getNom() + " à " + newService.getNom() + " !");
     }
 }

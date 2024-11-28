@@ -2,7 +2,6 @@ package TD3_Part.creatures;
 
 import TD3_Part.Maladie;
 import TD3_Part.ServiceMedical;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -118,16 +117,19 @@ public abstract class Creature {
     }
 
     public void trepasser() {
-        if (Math.random() <= 0.6) {
-            if (!getMaladies().isEmpty()) {
-                int randomIndexMaladie = random.nextInt(getMaladies().size());
-                Maladie maladie = getMaladies().get(randomIndexMaladie);
-                int randomIndexCreatureAContaminer = random.nextInt(getServiceMedical().getCreatures().size());
-                Creature creatureToContamine = getServiceMedical().getCreatures().get(randomIndexCreatureAContaminer);
-
-                creatureToContamine.tomberMalade(maladie);
-
-                System.out.println(getNom() + " a contaminé " + creatureToContamine.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
+        System.out.println(getNom() + " est décédé.");
+        if (!getMaladies().isEmpty()) {
+            for (Maladie maladie : getMaladies()) {
+                if (maladie.estLethal()) {
+                    List<Creature> creatures = getServiceMedical().getCreatures();
+                    for (Creature creature : creatures) {
+                        if (creature != this && Math.random() <= 0.5) {
+                            creature.tomberMalade(maladie);
+                            System.out.println(getNom() + " a contaminé " + creature.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
