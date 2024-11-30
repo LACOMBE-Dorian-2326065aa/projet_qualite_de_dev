@@ -72,6 +72,7 @@ public class ServiceMedical {
     public void ajouterCreature(Creature creature) {
         if (capaciteActuelle < capaciteMax) {
             creatures.add(creature);
+            creature.setServiceMedical(this);
             capaciteActuelle++;
         } else {
             System.out.println("Capacité maximale atteinte pour le service médical.");

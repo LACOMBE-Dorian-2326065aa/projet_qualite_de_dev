@@ -117,7 +117,7 @@ public abstract class Creature {
     }
 
     public void trepasser() {
-        System.out.println(getNom() + " est décédé.");
+//        System.out.println(getNom() + " est décédé.");
         if (!getMaladies().isEmpty()) {
             for (Maladie maladie : getMaladies()) {
                 if (maladie.estLethal()) {

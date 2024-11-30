@@ -1,5 +1,8 @@
 package TD3_Part;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Maladie {
     private String nomComplet;
     private String nomAbrege;
@@ -11,6 +14,9 @@ public class Maladie {
     public static final String PEC = "Porphyrie érythropoïétique congénitale";
     public static final String ZPL = "Zoopathie paraphrénique lycanthropique";
     public static final String NDMAD = "Nécrose Dégénérative des Membres et des Articulations Dorsales";
+
+    static ArrayList<String> maladiesStr = new ArrayList<>(Arrays.asList(new String[]{Maladie.MDC, Maladie.FOMO, Maladie.DRS, Maladie.PEC, Maladie.ZPL, Maladie.NDMAD}));
+    static ArrayList<String> maladiesStrLabels = new ArrayList<>(Arrays.asList(new String[]{"MDC", "FOMO", "DRS", "PEC", "ZPL", "NDMAD"}));
 
     public Maladie(String nomComplet, String nomAbrege, int niveauMax) {
         this.nomComplet = nomComplet;

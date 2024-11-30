@@ -14,9 +14,10 @@ public class CentreDeQuarantaine extends ServiceMedical {
     @Override
     public void ajouterCreature(Creature creature) {
         if (creature.getMaladies().size() > 0) {
-            if (capaciteActuelle < capaciteMax) {
-                creatures.add(creature);
-                capaciteActuelle++;
+            if (getCapaciteActuelle() < getCapaciteMax()) {
+                getCreatures().add(creature);
+                creature.setServiceMedical(this);
+                setCapaciteMax(getCapaciteMax() + 1);
             } else {
                 System.out.println("Capacité maximale atteinte pour le service médical.");
             }

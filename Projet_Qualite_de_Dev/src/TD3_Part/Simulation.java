@@ -1,13 +1,14 @@
 package TD3_Part;
 
 import TD3_Part.creatures.Creature;
-import TD3_Part.creatures.specific.Elfe;
-import TD3_Part.creatures.specific.Orques;
-import TD3_Part.creatures.specific.Vampire;
-import TD3_Part.creatures.specific.Zombie;
+import TD3_Part.creatures.specific.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Simulation {
+
     public static void main(String[] args) {
         // Création de l'hôpital fantastique
         HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 10);
@@ -15,10 +16,14 @@ public class Simulation {
         ServiceMedical service1 = new ServiceMedical("Service des Zombies", 500.0, 10, "100000");
         ServiceMedical service2 = new ServiceMedical("Service des Vampires", 300.0, 5, "50000");
         ServiceMedical service3 = new ServiceMedical("Service des Orques", 400.0, 8, "75000");
+        ServiceMedical service4 = new ServiceMedical("Service des Nains", 400.0, 8, "75000");
+        ServiceMedical service5 = new ServiceMedical("Service des Reptiliens", 400.0, 8, "75000");
 
         hopital.ajouterService(service1);
         hopital.ajouterService(service2);
         hopital.ajouterService(service3);
+        hopital.ajouterService(service4);
+        hopital.ajouterService(service5);
 
         Medecin medecin1 = new Medecin("Dr. Frankenstein", "Homme", 45);
         Medecin medecin2 = new Medecin("Dr. Acula", "Femme", 38);
@@ -34,6 +39,10 @@ public class Simulation {
         Vampire vampire2 = new Vampire("Vampire2", "Homme", 70.0, 1.80, 130);
         Orques orque2 = new Orques("Orque2", "Femme", 85.0, 1.95, 35);
         Elfe elfe2 = new Elfe("Elfe2", "Homme", 60.0, 1.72, 210);
+        Nain nain1 = new Nain("Nain1", "Homme", 50.0, 1.5, 150);
+        Reptilien reptilien1 = new Reptilien("Reptilien1", "Femme", 70.0, 1.8, 100);
+        Nain nain2 = new Nain("Nain2", "Femme", 45.0, 1.45, 160);
+        Reptilien reptilien2 = new Reptilien("Reptilien2", "Homme", 75.0, 1.85, 110);
 
         service1.ajouterCreature(zombie2);
         service2.ajouterCreature(vampire2);
@@ -43,6 +52,10 @@ public class Simulation {
         service2.ajouterCreature(vampire1);
         service3.ajouterCreature(orque1);
         service3.ajouterCreature(elfe1);
+        service4.ajouterCreature(nain1);
+        service4.ajouterCreature(nain2);
+        service5.ajouterCreature(reptilien1);
+        service5.ajouterCreature(reptilien2);
 
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();
@@ -62,12 +75,18 @@ public class Simulation {
         });
         thread1.start();
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Thread pour les actions de l'utilisateur
         Thread thread2 = new Thread(() -> {
             while (true) {
                 interfaceHopital.init();
                 try {
-                    Thread.sleep(interval * 100L);
+                    Thread.sleep(interval * 1000L);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -77,6 +96,7 @@ public class Simulation {
     }
 
     private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Random rand) {
+        String events = "Événements aléatoires :\n";
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
                 double proba = Math.random();
@@ -84,20 +104,25 @@ public class Simulation {
                 // Probabilité de tomber malade
                 if (proba <= 0.4) {
                     if (creature.getMaladies().isEmpty()) {
-                        creature.tomberMalade(new Maladie(Maladie.MDC, "MDC", 10));
-                        System.out.println(creature.getNom() + " est tombé malade de MDC.");
+                        int maladieIndex = rand.nextInt(Maladie.maladiesStr.size());
+                        creature.tomberMalade(new Maladie(Maladie.maladiesStr.get(maladieIndex), Maladie.maladiesStrLabels.get(maladieIndex), rand.nextInt(13) + 2));
+//                        System.out.println(creature.getNom() + " est tombé malade de " + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").");
+                        events += " - (🦠) " + creature.getNom() + " : +" + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").\n";
                     }
                 }
 
                 // Probabilité d'aggraver une maladie existante
                 proba = Math.random();
-                if (proba <= 0.9) {
+                if (proba <= 0.5) {
                     if (!creature.getMaladies().isEmpty()) {
                         Maladie maladie = creature.getMaladies().get(rand.nextInt(creature.getMaladies().size()));
+                        int niveauActuel = maladie.getNiveauActuel();
                         maladie.augmenterNiveau();
-                        System.out.println("La maladie de " + creature.getNom() + " s'est aggravée.");
+//                        System.out.println("La maladie " + maladie.getNomAbrege() + " de " + creature.getNom() + " s'est aggravée (" + niveauActuel + " => " + maladie.getNiveauActuel() + " / " + maladie.getNiveauMax() + ").");
+                        events += " - (🦠📈) " + creature.getNom() + " : " + maladie.getNomAbrege() + " s'aggrave (" + niveauActuel + " => " + maladie.getNiveauActuel() + " / " + maladie.getNiveauMax() + ").\n";
                         if (maladie.estLethal()) {
                             creature.trepasser();
+                            events += " - (☠️) " + creature.getNom() + " : mort.\n";
                         }
                     }
                 }
@@ -108,10 +133,12 @@ public class Simulation {
                     if (!creature.getMaladies().isEmpty()) {
                         Maladie maladie = creature.getMaladies().get(rand.nextInt(creature.getMaladies().size()));
                         creature.guerison(maladie);
-                        System.out.println(creature.getNom() + " a guéri de " + maladie.getNomComplet() + ".");
+//                        System.out.println(creature.getNom() + " a guéri de " + maladie.getNomComplet() + ".");
+                        events += " - (💊) " + creature.getNom() + " : -" + maladie.getNomAbrege() + " soignée.\n";
                     }
                 }
             }
         }
+        System.out.println(events);
     }
 }
