@@ -2,7 +2,10 @@ package TD3_Part.creatures;
 
 import TD3_Part.Maladie;
 import TD3_Part.ServiceMedical;
+import TD3_Part.Simulation;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -16,6 +19,10 @@ public abstract class Creature {
     private List<Maladie> maladies;
     private ServiceMedical serviceMedical;
     private static Random random = new Random();
+    private boolean mort;
+    private int compteurAttendre;
+
+    public static HashMap<Class<?>, Integer> compteurAttendreEspece = new HashMap<>();
 
     public Creature(String nom, String sexe, double poids, double taille, int age) {
         this.nom = nom;
@@ -23,8 +30,26 @@ public abstract class Creature {
         this.poids = poids;
         this.taille = taille;
         this.age = age;
-        this.moral = 100;
+        this.moral = 15;
         this.maladies = new ArrayList<>();
+        compteurAttendre = 0;
+        mort = false;
+    }
+
+    public int getCompteurAttendre() {
+        return compteurAttendre;
+    }
+
+    public void setCompteurAttendre(int compteurAttendre) {
+        this.compteurAttendre = compteurAttendre;
+    }
+
+    public boolean isMort() {
+        return mort;
+    }
+
+    public void setMort(boolean mort) {
+        this.mort = mort;
     }
 
     public ServiceMedical getServiceMedical() {
@@ -49,6 +74,17 @@ public abstract class Creature {
 
     public void setMoral(int moral) {
         this.moral = moral;
+    }
+
+    public void baisseMoral() {
+        Simulation.events += " - (🤯) " + getNom() + " : Moral : " + moral + " → " + (moral - 1) + ".\n";
+        this.moral--;
+        hurler();
+        if (moral <= 0) {
+            Simulation.events += " - (☠️) " + getNom() + " : mort.\n";
+            Simulation.morts++;
+            trepasser();
+        }
     }
 
     public List<Maladie> getMaladies() {
@@ -92,12 +128,18 @@ public abstract class Creature {
     }
 
     public void attendre() {
+        compteurAttendreEspece.put(this.getClass(), compteurAttendreEspece.getOrDefault(this.getClass(), 0) + 1);
+        Simulation.events += " - (💤) " + getNom() + " : attend (Moral : " + moral + " → " + (moral - 1) + ").\n";
         this.moral--;
+        hurler();
+        if (moral <= 0) {
+            trepasser();
+        }
     }
 
     public void hurler() {
         if (this.moral <= 1) {
-            System.out.println(this.getNom() + " hurle, RAAAAAAAAAAAAAAAAAAAAH !");
+            Simulation.events += " - (🧟) " + this.getNom() + " : hurle, RAAAAAAAAAAAAAAAAAAAAH !\n";
         }
     }
 
@@ -125,12 +167,14 @@ public abstract class Creature {
                     for (Creature creature : creatures) {
                         if (creature != this && Math.random() <= 0.5) {
                             creature.tomberMalade(maladie);
-                            System.out.println(getNom() + " a contaminé " + creature.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
+//                            System.out.println(getNom() + " a contaminé " + creature.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
+                            Simulation.events += " - (☠️🦠) " + getNom() + " : contamine " + creature.getNom() + " (" + maladie.getNomAbrege() + ").\n";
                         }
                     }
                     break;
                 }
             }
         }
+        setMort(true);
     }
 }

@@ -1,9 +1,6 @@
 package TD3_Part.creatures.specific;
 
-import TD3_Part.creatures.ClientVIPPrioritaire;
-import TD3_Part.creatures.Creature;
-import TD3_Part.creatures.CreatureBestiale;
-import TD3_Part.creatures.HabitantDuTriage;
+import TD3_Part.creatures.*;
 
 public class HommeBete extends Creature implements CreatureBestiale, HabitantDuTriage {
 
@@ -14,6 +11,11 @@ public class HommeBete extends Creature implements CreatureBestiale, HabitantDuT
     @Override
     public void attendre() {
         HabitantDuTriage.super.attendre();
+    }
+
+    @Override
+    public void trepasser() {
+        CreatureBestiale.super.trepasser();
     }
 
 }

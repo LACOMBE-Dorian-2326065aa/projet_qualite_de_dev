@@ -15,5 +15,10 @@ public class Zombie extends Creature implements MortVivant, HabitantDuTriage {
         HabitantDuTriage.super.attendre();
     }
 
+    @Override
+    public void trepasser() {
+        MortVivant.super.trepasser();
+    }
+
 }
 

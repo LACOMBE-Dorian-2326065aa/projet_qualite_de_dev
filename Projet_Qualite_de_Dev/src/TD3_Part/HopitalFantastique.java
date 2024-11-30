@@ -60,10 +60,6 @@ public class HopitalFantastique {
         }
     }
 
-    public void ajouterMedecin(Medecin medecin) {
-        medecins.add(medecin);
-    }
-
     public int getNombreCreatures() {
         int totalCreatures = 0;
         for (ServiceMedical service : services) {

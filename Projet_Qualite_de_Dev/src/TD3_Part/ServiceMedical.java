@@ -2,6 +2,7 @@ package TD3_Part;
 
 import TD3_Part.creatures.Creature;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ServiceMedical {
@@ -80,13 +81,16 @@ public class ServiceMedical {
     }
 
     public void soignerCreatures() {
-        List<Creature> creaturesCopy = new ArrayList<>(creatures);
-        for (Creature creature : creaturesCopy) {
+        HashMap<Creature, Maladie> toRemove = new HashMap<>();
+        for (Creature creature : creatures) {
             for (Maladie maladie : creature.getMaladies()) {
                 if (maladie != null) {
-                    creature.guerison(maladie);
+                    toRemove.put(creature, maladie);
                 }
             }
+        }
+        for (Creature creature : toRemove.keySet()) {
+            creature.guerison(toRemove.get(creature));
         }
     }
 

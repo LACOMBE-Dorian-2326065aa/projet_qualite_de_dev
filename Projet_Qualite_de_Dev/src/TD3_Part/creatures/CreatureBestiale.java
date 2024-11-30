@@ -1,6 +1,7 @@
 package TD3_Part.creatures;
 
 import TD3_Part.Maladie;
+import TD3_Part.Simulation;
 
 import java.util.Random;
 
@@ -17,8 +18,9 @@ public interface CreatureBestiale {
                 Creature creatureToContamine = creature.getServiceMedical().getCreatures().get(randomIndexCreatureAContaminer);
 
                 creatureToContamine.tomberMalade(maladie);
+                Simulation.events += " - (☠️🦠) " + creature.getNom() + " (#CrétureBestiale) : contamine " + creatureToContamine.getNom() + " (" + maladie.getNomAbrege() + ").\n";
 
-                System.out.println(creature.getNom() + " a contaminé " + creatureToContamine.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
+//                System.out.println(creature.getNom() + " a contaminé " + creatureToContamine.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
             }
         }
     }

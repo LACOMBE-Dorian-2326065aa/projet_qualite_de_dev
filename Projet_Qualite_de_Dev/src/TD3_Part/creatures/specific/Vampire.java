@@ -15,4 +15,9 @@ public class Vampire extends Creature implements MortVivant, ClientVIPPrioritair
         ClientVIPPrioritaire.super.attendre();
     }
 
+    @Override
+    public void trepasser() {
+        MortVivant.super.trepasser();
+    }
+
 }

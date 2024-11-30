@@ -61,7 +61,7 @@ public class InterfaceHopital {
         System.out.println("4. Transférer une créature d'un service médical à un autre (1 action)");
         System.out.println("5. Passer le tour");
         System.out.println("6. Quitter");
-        System.out.println("Entrez votre choix : ");
+        System.out.println("Entrez votre choix (Actions : " + actions + " / 3) : ");
     }
 
     private static void soignerCreatures() {
@@ -161,5 +161,9 @@ public class InterfaceHopital {
         }
 
         return number;
+    }
+
+    public static void resetActions() {
+        actions = 3;
     }
 }

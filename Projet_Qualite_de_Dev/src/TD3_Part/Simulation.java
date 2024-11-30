@@ -9,6 +9,12 @@ import java.util.Random;
 
 public class Simulation {
 
+    private static int interval = 30;
+    public static int morts = 0;
+    private static final int MAX_MORTS = 6;
+    private static int iterations = 0;
+    public static String events;
+
     public static void main(String[] args) {
         // Création de l'hôpital fantastique
         HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 10);
@@ -24,12 +30,6 @@ public class Simulation {
         hopital.ajouterService(service3);
         hopital.ajouterService(service4);
         hopital.ajouterService(service5);
-
-        Medecin medecin1 = new Medecin("Dr. Frankenstein", "Homme", 45);
-        Medecin medecin2 = new Medecin("Dr. Acula", "Femme", 38);
-
-        hopital.ajouterMedecin(medecin1);
-        hopital.ajouterMedecin(medecin2);
 
         Zombie zombie1 = new Zombie("Zombie1", "Homme", 70.0, 1.8, 30);
         Vampire vampire1 = new Vampire("Vampire1", "Femme", 65.0, 1.75, 120);
@@ -60,8 +60,6 @@ public class Simulation {
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();
 
-        int interval = 30;
-
         // Thread pour les événements aléatoires
         Thread thread1 = new Thread(() -> {
             while (true) {
@@ -84,7 +82,11 @@ public class Simulation {
         // Thread pour les actions de l'utilisateur
         Thread thread2 = new Thread(() -> {
             while (true) {
+                System.out.println("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIl y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital.\n\n");
+                hopital.afficherCreatures();
+                System.out.println("\n=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n\n");
                 interfaceHopital.init();
+                InterfaceHopital.resetActions();
                 try {
                     Thread.sleep(interval * 1000L);
                 } catch (InterruptedException e) {
@@ -96,16 +98,27 @@ public class Simulation {
     }
 
     private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Random rand) {
-        String events = "Événements aléatoires :\n";
+        events = "\nÉvénements aléatoires :\n";
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
+                if(creature.isMort())
+                    continue;
+
                 double proba = Math.random();
+
+                if (Math.random() <= 0.5) {
+                    creature.setCompteurAttendre(creature.getCompteurAttendre() + 1);
+                    creature.attendre();
+                    continue;
+                } else {
+                    creature.setCompteurAttendre(0);
+                }
 
                 // Probabilité de tomber malade
                 if (proba <= 0.4) {
                     if (creature.getMaladies().isEmpty()) {
                         int maladieIndex = rand.nextInt(Maladie.maladiesStr.size());
-                        creature.tomberMalade(new Maladie(Maladie.maladiesStr.get(maladieIndex), Maladie.maladiesStrLabels.get(maladieIndex), rand.nextInt(13) + 2));
+                        creature.tomberMalade(new Maladie(Maladie.maladiesStr.get(maladieIndex), Maladie.maladiesStrLabels.get(maladieIndex), rand.nextInt(6) + 2));
 //                        System.out.println(creature.getNom() + " est tombé malade de " + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").");
                         events += " - (🦠) " + creature.getNom() + " : +" + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").\n";
                     }
@@ -121,10 +134,16 @@ public class Simulation {
 //                        System.out.println("La maladie " + maladie.getNomAbrege() + " de " + creature.getNom() + " s'est aggravée (" + niveauActuel + " => " + maladie.getNiveauActuel() + " / " + maladie.getNiveauMax() + ").");
                         events += " - (🦠📈) " + creature.getNom() + " : " + maladie.getNomAbrege() + " s'aggrave (" + niveauActuel + " => " + maladie.getNiveauActuel() + " / " + maladie.getNiveauMax() + ").\n";
                         if (maladie.estLethal()) {
-                            creature.trepasser();
                             events += " - (☠️) " + creature.getNom() + " : mort.\n";
+                            morts++;
+                            creature.trepasser();
                         }
                     }
+                }
+
+                proba = Math.random();
+                if (proba <= 0.3) {
+                    creature.baisseMoral();
                 }
 
                 // Probabilité de guérir d'une maladie
@@ -140,5 +159,17 @@ public class Simulation {
             }
         }
         System.out.println(events);
+        String mortsIcon = "";
+        for (int i = 0; i < morts; ++i) {
+            mortsIcon += "☠️";
+        }
+        System.out.println("→ (" + mortsIcon + ") Morts : " + morts + " / " + MAX_MORTS + "\n");
+
+        if (morts >= MAX_MORTS) {
+            System.out.println("→ Le nombre de morts a atteint le maximum autorisé. Fin de la simulation.\n\n📈 - Score : " + iterations + " tours");
+            System.exit(0);
+        }
+        iterations++;
+        Creature.compteurAttendreEspece.clear();
     }
 }
