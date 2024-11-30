@@ -1,4 +1,7 @@
-package TD3_Part;
+package TD3_Part.main;
+
+import TD3_Part.creatures.specific.Medecin;
+import TD3_Part.services.ServiceMedical;
 
 import java.util.ArrayList;
 import java.util.List;

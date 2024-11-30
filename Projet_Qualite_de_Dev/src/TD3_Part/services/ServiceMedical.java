@@ -1,7 +1,11 @@
-package TD3_Part;
+package TD3_Part.services;
 
+import TD3_Part.creatures.Maladie;
 import TD3_Part.creatures.Creature;
+import TD3_Part.values.TypeBudget;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,9 +15,11 @@ public class ServiceMedical {
     private int capaciteMax;
     private int capaciteActuelle;
     private List<Creature> creatures;
-    private String budget;
+    private TypeBudget budget;
 
-    public ServiceMedical(String nom, double superficie, int capaciteMax, String budget) {
+    public static ArrayList<TypeBudget> budgets = new ArrayList<>(Arrays.asList(TypeBudget.values()));
+
+    public ServiceMedical(String nom, double superficie, int capaciteMax, TypeBudget budget) {
         this.nom = nom;
         this.superficie = superficie;
         this.capaciteMax = capaciteMax;
@@ -30,11 +36,11 @@ public class ServiceMedical {
         this.nom = nom;
     }
 
-    public String getBudget() {
+    public TypeBudget getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
+    public void setBudget(TypeBudget budget) {
         this.budget = budget;
     }
 
@@ -70,14 +76,26 @@ public class ServiceMedical {
         this.superficie = superficie;
     }
 
-    public void ajouterCreature(Creature creature) {
+    public boolean ajouterCreature(Creature creature) {
         if (capaciteActuelle < capaciteMax) {
+            for (Creature creatureElt : creatures) {
+                if (creature.getClass() != creatureElt.getClass()) {
+                    System.out.println("[⛔] Une créature de type " + creature.getClass().getSimpleName() + " ne peut pas être mélangée avec une créature du type " + creatureElt.getClass().getSimpleName());
+                    return false;
+                }
+            }
             creatures.add(creature);
             creature.setServiceMedical(this);
             capaciteActuelle++;
+            return true;
         } else {
             System.out.println("Capacité maximale atteinte pour le service médical.");
+            return false;
         }
+    }
+
+    public void retirerCreature(Creature creature) {
+        creatures.remove(creature);
     }
 
     public void soignerCreatures() {

@@ -1,10 +1,13 @@
-package TD3_Part;
+package TD3_Part.main;
 
+import TD3_Part.creatures.Maladie;
 import TD3_Part.creatures.Creature;
+import TD3_Part.services.CentreDeQuarantaine;
+import TD3_Part.services.Crypte;
+import TD3_Part.services.ServiceMedical;
 import TD3_Part.creatures.specific.*;
+import TD3_Part.values.TypeBudget;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Simulation {
@@ -17,19 +20,34 @@ public class Simulation {
 
     public static void main(String[] args) {
         // Création de l'hôpital fantastique
-        HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 10);
+        HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 11);
 
-        ServiceMedical service1 = new ServiceMedical("Service des Zombies", 500.0, 10, "100000");
-        ServiceMedical service2 = new ServiceMedical("Service des Vampires", 300.0, 5, "50000");
-        ServiceMedical service3 = new ServiceMedical("Service des Orques", 400.0, 8, "75000");
-        ServiceMedical service4 = new ServiceMedical("Service des Nains", 400.0, 8, "75000");
-        ServiceMedical service5 = new ServiceMedical("Service des Reptiliens", 400.0, 8, "75000");
+        ServiceMedical service1 = new ServiceMedical("Service des Zombies", 500.0, 10, TypeBudget.FAIBLE);
+        ServiceMedical service2 = new ServiceMedical("Service des Vampires", 300.0, 5, TypeBudget.FAIBLE);
+        ServiceMedical service3 = new ServiceMedical("Service des Orques", 400.0, 8, TypeBudget.MEDIOCRE);
+        ServiceMedical service4 = new ServiceMedical("Service des Nains", 400.0, 8, TypeBudget.FAIBLE);
+        ServiceMedical service5 = new ServiceMedical("Service des Reptiliens", 400.0, 8, TypeBudget.INSUFFISANT);
+        ServiceMedical service6 = new ServiceMedical("Service des Elfes", 400.0, 8, TypeBudget.FAIBLE);
+        ServiceMedical service7 = new ServiceMedical("Service des Hommes-Bêtes", 400.0, 8, TypeBudget.FAIBLE);
+        ServiceMedical service8 = new ServiceMedical("Service des Lycanthropes", 400.0, 8, TypeBudget.FAIBLE);
+        ServiceMedical service9crypte = new Crypte("Crypte", 1000.0, 20, TypeBudget.INEXISTANT);
+        ServiceMedical service10quarantaine = new CentreDeQuarantaine("Centre de Quarantaine", 1000.0, 20, TypeBudget.INEXISTANT);
+        ServiceMedical service11vide = new ServiceMedical("Service Vide", 1000.0, 20, TypeBudget.INEXISTANT);
 
         hopital.ajouterService(service1);
         hopital.ajouterService(service2);
         hopital.ajouterService(service3);
         hopital.ajouterService(service4);
         hopital.ajouterService(service5);
+        hopital.ajouterService(service6);
+        hopital.ajouterService(service7);
+        hopital.ajouterService(service8);
+        hopital.ajouterService(service9crypte);
+        hopital.ajouterService(service10quarantaine);
+        hopital.ajouterService(service11vide);
+
+        Medecin medecin1 = new Medecin("Dr. Frankenstein", 54, "Homme");
+        hopital.getMedecins().add(medecin1);
 
         Zombie zombie1 = new Zombie("Zombie1", "Homme", 70.0, 1.8, 30);
         Vampire vampire1 = new Vampire("Vampire1", "Femme", 65.0, 1.75, 120);
@@ -43,19 +61,27 @@ public class Simulation {
         Reptilien reptilien1 = new Reptilien("Reptilien1", "Femme", 70.0, 1.8, 100);
         Nain nain2 = new Nain("Nain2", "Femme", 45.0, 1.45, 160);
         Reptilien reptilien2 = new Reptilien("Reptilien2", "Homme", 75.0, 1.85, 110);
+        HommeBete hommeBete1 = new HommeBete("HommeBete1", "Homme", 80.0, 1.9, 50);
+        HommeBete hommeBete2 = new HommeBete("HommeBete2", "Femme", 75.0, 1.85, 55);
+        Lycanthrope lycanthrope1 = new Lycanthrope("Lycanthrope1", "Homme", 85.0, 1.95, 45);
+        Lycanthrope lycanthrope2 = new Lycanthrope("Lycanthrope2", "Femme", 80.0, 1.9, 50);
 
-        service1.ajouterCreature(zombie2);
-        service2.ajouterCreature(vampire2);
-        service3.ajouterCreature(orque2);
-        service3.ajouterCreature(elfe2);
         service1.ajouterCreature(zombie1);
         service2.ajouterCreature(vampire1);
         service3.ajouterCreature(orque1);
-        service3.ajouterCreature(elfe1);
+        service6.ajouterCreature(elfe1);
         service4.ajouterCreature(nain1);
-        service4.ajouterCreature(nain2);
         service5.ajouterCreature(reptilien1);
+        service4.ajouterCreature(nain2);
+        service1.ajouterCreature(zombie2);
+        service2.ajouterCreature(vampire2);
+        service3.ajouterCreature(orque2);
+        service6.ajouterCreature(elfe2);
         service5.ajouterCreature(reptilien2);
+        service7.ajouterCreature(hommeBete1);
+        service7.ajouterCreature(hommeBete2);
+        service8.ajouterCreature(lycanthrope1);
+        service8.ajouterCreature(lycanthrope2);
 
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();
@@ -85,7 +111,6 @@ public class Simulation {
                 System.out.println("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIl y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital.\n\n");
                 hopital.afficherCreatures();
                 System.out.println("\n=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n\n");
-                interfaceHopital.init();
                 InterfaceHopital.resetActions();
                 try {
                     Thread.sleep(interval * 1000L);
@@ -95,6 +120,7 @@ public class Simulation {
             }
         });
         thread2.start();
+        interfaceHopital.init();
     }
 
     private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Random rand) {
@@ -117,10 +143,10 @@ public class Simulation {
                 // Probabilité de tomber malade
                 if (proba <= 0.4) {
                     if (creature.getMaladies().isEmpty()) {
-                        int maladieIndex = rand.nextInt(Maladie.maladiesStr.size());
-                        creature.tomberMalade(new Maladie(Maladie.maladiesStr.get(maladieIndex), Maladie.maladiesStrLabels.get(maladieIndex), rand.nextInt(6) + 2));
+                        int maladieIndex = rand.nextInt(Maladie.maladiesList.size());
+                        creature.tomberMalade(new Maladie(Maladie.maladiesList.get(maladieIndex), rand.nextInt(6) + 2));
 //                        System.out.println(creature.getNom() + " est tombé malade de " + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").");
-                        events += " - (🦠) " + creature.getNom() + " : +" + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").\n";
+                        events += " - (🦠) " + creature.getNom() + " : +" + Maladie.maladiesList.get(maladieIndex).getNomAbrege() + " (" + Maladie.maladiesList.get(maladieIndex).getNomComplet() + ").\n";
                     }
                 }
 
@@ -166,7 +192,7 @@ public class Simulation {
         System.out.println("→ (" + mortsIcon + ") Morts : " + morts + " / " + MAX_MORTS + "\n");
 
         if (morts >= MAX_MORTS) {
-            System.out.println("→ Le nombre de morts a atteint le maximum autorisé. Fin de la simulation.\n\n📈 - Score : " + iterations + " tours");
+            System.out.println("→ [😶‍🌫️] Le nombre de morts a atteint le maximum autorisé. Fin de la simulation.\n\n[📈]1 Score : " + iterations + " tours");
             System.exit(0);
         }
         iterations++;

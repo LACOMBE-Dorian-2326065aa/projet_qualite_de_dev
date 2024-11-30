@@ -1,8 +1,7 @@
 package TD3_Part.creatures;
 
-import TD3_Part.Maladie;
-import TD3_Part.ServiceMedical;
-import TD3_Part.Simulation;
+import TD3_Part.services.ServiceMedical;
+import TD3_Part.main.Simulation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +28,16 @@ public abstract class Creature {
         this.sexe = sexe;
         this.poids = poids;
         this.taille = taille;
+        this.age = age;
+        this.moral = 15;
+        this.maladies = new ArrayList<>();
+        compteurAttendre = 0;
+        mort = false;
+    }
+
+    public Creature(String nom, String sexe, int age) {
+        this.nom = nom;
+        this.sexe = sexe;
         this.age = age;
         this.moral = 15;
         this.maladies = new ArrayList<>();

@@ -1,6 +1,6 @@
 package TD3_Part.creatures;
 
-import TD3_Part.Simulation;
+import TD3_Part.main.Simulation;
 
 public interface ClientVIPPrioritaire {
 
