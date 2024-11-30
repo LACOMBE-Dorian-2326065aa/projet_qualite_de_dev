@@ -8,6 +8,7 @@ import TD3_Part.services.ServiceMedical;
 import TD3_Part.creatures.specific.*;
 import TD3_Part.values.TypeBudget;
 
+import java.util.List;
 import java.util.Random;
 
 public class Simulation {
@@ -148,6 +149,11 @@ public class Simulation {
 //                        System.out.println(creature.getNom() + " est tombé malade de " + Maladie.maladiesStrLabels.get(maladieIndex) + " (" + Maladie.maladiesStr.get(maladieIndex) + ").");
                         events += " - (🦠) " + creature.getNom() + " : +" + Maladie.maladiesList.get(maladieIndex).getNomAbrege() + " (" + Maladie.maladiesList.get(maladieIndex).getNomComplet() + ").\n";
                     }
+                }
+
+                proba = Math.random();
+                if (proba <= 0.3) {
+                    creature.sEmporter();
                 }
 
                 // Probabilité d'aggraver une maladie existante

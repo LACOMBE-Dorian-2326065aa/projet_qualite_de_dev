@@ -153,7 +153,18 @@ public abstract class Creature {
     }
 
     public void sEmporter() {
-        System.out.println(this.getNom() + " s'emporte et devient dangereux !");
+        Simulation.events += " - (🧟🤯) " + this.getNom() + " : s'emporte, RAAHAHDUEFHUIEGHUZEIGHEZUF !\n";
+        if (maladies.size() > 0 && Math.random() <= 0.75) {
+            List<Creature> creatures = getServiceMedical().getCreatures();
+            for (Creature creature : creatures) {
+                if (creature != this) {
+                    Maladie maladie = maladies.get(random.nextInt(maladies.size()));
+                    creature.tomberMalade(maladie);
+                    Simulation.events += " - (☠️🦠) " + getNom() + " : contamine " + creature.getNom() + " (" + maladie.getNomAbrege() + ").\n";
+                    break;
+                }
+            }
+        }
     }
 
     public void tomberMalade(Maladie maladie) {
@@ -168,22 +179,6 @@ public abstract class Creature {
     }
 
     public void trepasser() {
-//        System.out.println(getNom() + " est décédé.");
-        if (!getMaladies().isEmpty()) {
-            for (Maladie maladie : getMaladies()) {
-                if (maladie.estLethal()) {
-                    List<Creature> creatures = getServiceMedical().getCreatures();
-                    for (Creature creature : creatures) {
-                        if (creature != this && Math.random() <= 0.5) {
-                            creature.tomberMalade(maladie);
-//                            System.out.println(getNom() + " a contaminé " + creature.getNom() + " (" + maladie.getNomComplet() + ") en trépassant !");
-                            Simulation.events += " - (☠️🦠) " + getNom() + " : contamine " + creature.getNom() + " (" + maladie.getNomAbrege() + ").\n";
-                        }
-                    }
-                    break;
-                }
-            }
-        }
         setMort(true);
     }
 }
