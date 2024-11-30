@@ -79,7 +79,7 @@ public class InterfaceHopital implements MedecinActions {
             input = scanner.nextLine();
             try {
                 number = Integer.parseInt(input);
-                if (number > 0 && number <= max) {
+                if (number > 0 && number < max) {
                     break;
                 } else {
                     System.out.println("Veuillez entrer un numéro valide.");
