@@ -3,14 +3,15 @@ package TD3_Part.creatures.specific;
 import TD3_Part.creatures.Creature;
 import TD3_Part.creatures.Maladie;
 import TD3_Part.main.MedecinActions;
+import TD3_Part.values.TypeSexe;
 
 public class Medecin extends Creature implements MedecinActions {
 
     private String nom;
-    private String sexe;
+    private TypeSexe sexe;
     private int age;
 
-    public Medecin(String sexe, int age, String nom) {
+    public Medecin(TypeSexe sexe, int age, String nom) {
         super(nom, sexe, age);
         this.sexe = sexe;
         this.age = age;
@@ -25,11 +26,11 @@ public class Medecin extends Creature implements MedecinActions {
         this.nom = nom;
     }
 
-    public String getSexe() {
+    public TypeSexe getSexe() {
         return sexe;
     }
 
-    public void setSexe(String sexe) {
+    public void setSexe(TypeSexe sexe) {
         this.sexe = sexe;
     }
 

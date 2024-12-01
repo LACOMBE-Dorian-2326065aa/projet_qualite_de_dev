@@ -2,6 +2,7 @@ package TD3_Part.creatures;
 
 import TD3_Part.services.ServiceMedical;
 import TD3_Part.main.Simulation;
+import TD3_Part.values.TypeSexe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Random;
 
 public abstract class Creature {
     private String nom;
-    private String sexe;
+    private TypeSexe sexe;
     private double poids;
     private double taille;
     private int age;
@@ -23,7 +24,7 @@ public abstract class Creature {
 
     public static HashMap<Class<?>, Integer> compteurAttendreEspece = new HashMap<>();
 
-    public Creature(String nom, String sexe, double poids, double taille, int age) {
+    public Creature(String nom, TypeSexe sexe, double poids, double taille, int age) {
         this.nom = nom;
         this.sexe = sexe;
         this.poids = poids;
@@ -35,7 +36,7 @@ public abstract class Creature {
         mort = false;
     }
 
-    public Creature(String nom, String sexe, int age) {
+    public Creature(String nom, TypeSexe sexe, int age) {
         this.nom = nom;
         this.sexe = sexe;
         this.age = age;
@@ -128,11 +129,11 @@ public abstract class Creature {
         this.poids = poids;
     }
 
-    public String getSexe() {
+    public TypeSexe getSexe() {
         return sexe;
     }
 
-    public void setSexe(String sexe) {
+    public void setSexe(TypeSexe sexe) {
         this.sexe = sexe;
     }
 

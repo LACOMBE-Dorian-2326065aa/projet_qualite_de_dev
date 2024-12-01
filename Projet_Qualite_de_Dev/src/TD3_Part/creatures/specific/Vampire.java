@@ -4,10 +4,11 @@ import TD3_Part.creatures.ClientVIPPrioritaire;
 import TD3_Part.creatures.Creature;
 import TD3_Part.creatures.CreatureBestiale;
 import TD3_Part.creatures.MortVivant;
+import TD3_Part.values.TypeSexe;
 
 public class Vampire extends Creature implements MortVivant, ClientVIPPrioritaire, CreatureBestiale {
 
-    public Vampire(String nom, String sexe, double poids, double taille, int age) {
+    public Vampire(String nom, TypeSexe sexe, double poids, double taille, int age) {
         super(nom, sexe, poids, taille, age);
     }
 

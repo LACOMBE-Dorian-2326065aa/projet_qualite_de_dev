@@ -1,4 +1,6 @@
-package TD4;
+package TD3_Part.creatures;
+
+import TD3_Part.creatures.specific.Lycanthrope;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +34,7 @@ public class Colonie {
         System.out.println("Liste des lycanthropes de la colonie : ");
         while (meuteIterator.hasNext()) {
             Meute meute = meuteIterator.next();
-            Iterator<Lycanthrope> lycanthropeIterator = meute.getMeute().iterator();
+            Iterator<Lycanthrope> lycanthropeIterator = meute.getLycanthropes().iterator();
 
             while (lycanthropeIterator.hasNext()) {
                 Lycanthrope lycanthrope = lycanthropeIterator.next();

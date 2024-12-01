@@ -2,10 +2,11 @@ package TD3_Part.creatures.specific;
 
 import TD3_Part.creatures.ClientVIPPrioritaire;
 import TD3_Part.creatures.Creature;
+import TD3_Part.values.TypeSexe;
 
 public class Elfe extends Creature implements ClientVIPPrioritaire {
 
-    public Elfe(String nom, String sexe, double poids, double taille, int age) {
+    public Elfe(String nom, TypeSexe sexe, double poids, double taille, int age) {
         super(nom, sexe, poids, taille, age);
     }
 

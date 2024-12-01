@@ -1,12 +1,17 @@
 package TD3_Part.main;
 
+import TD3_Part.creatures.Colonie;
 import TD3_Part.creatures.Maladie;
 import TD3_Part.creatures.Creature;
+import TD3_Part.creatures.Meute;
 import TD3_Part.services.CentreDeQuarantaine;
 import TD3_Part.services.Crypte;
 import TD3_Part.services.ServiceMedical;
 import TD3_Part.creatures.specific.*;
+import TD3_Part.values.TypeAge;
 import TD3_Part.values.TypeBudget;
+import TD3_Part.values.TypeRangDomination;
+import TD3_Part.values.TypeSexe;
 
 import java.util.List;
 import java.util.Random;
@@ -18,6 +23,7 @@ public class Simulation {
     private static final int MAX_MORTS = 6;
     private static int iterations = 0;
     public static String events;
+    public static boolean partieLycan = true;
 
     public static void main(String[] args) {
         // Création de l'hôpital fantastique
@@ -35,6 +41,12 @@ public class Simulation {
         ServiceMedical service10quarantaine = new CentreDeQuarantaine("Centre de Quarantaine", 1000.0, 20, TypeBudget.INEXISTANT);
         ServiceMedical service11vide = new ServiceMedical("Service Vide", 1000.0, 20, TypeBudget.INEXISTANT);
 
+        Colonie colonie = new Colonie();
+
+        Meute meute = new Meute("Meute des Ombres", "Sud");
+
+        colonie.ajouterMeute(meute);
+
         hopital.ajouterService(service1);
         hopital.ajouterService(service2);
         hopital.ajouterService(service3);
@@ -47,25 +59,53 @@ public class Simulation {
         hopital.ajouterService(service10quarantaine);
         hopital.ajouterService(service11vide);
 
-        Medecin medecin1 = new Medecin("Dr. Frankenstein", 54, "Homme");
+        Medecin medecin1 = new Medecin(TypeSexe.MALE, 54, "Dr. Frankenstein");
         hopital.getMedecins().add(medecin1);
 
-        Zombie zombie1 = new Zombie("Zombie1", "Homme", 70.0, 1.8, 30);
-        Vampire vampire1 = new Vampire("Vampire1", "Femme", 65.0, 1.75, 120);
-        Orques orque1 = new Orques("Orque1", "Homme", 90.0, 2.0, 40);
-        Elfe elfe1 = new Elfe("Elfe1", "Femme", 55.0, 1.7, 200);
-        Zombie zombie2 = new Zombie("Zombie2", "Femme", 68.0, 1.65, 28);
-        Vampire vampire2 = new Vampire("Vampire2", "Homme", 70.0, 1.80, 130);
-        Orques orque2 = new Orques("Orque2", "Femme", 85.0, 1.95, 35);
-        Elfe elfe2 = new Elfe("Elfe2", "Homme", 60.0, 1.72, 210);
-        Nain nain1 = new Nain("Nain1", "Homme", 50.0, 1.5, 150);
-        Reptilien reptilien1 = new Reptilien("Reptilien1", "Femme", 70.0, 1.8, 100);
-        Nain nain2 = new Nain("Nain2", "Femme", 45.0, 1.45, 160);
-        Reptilien reptilien2 = new Reptilien("Reptilien2", "Homme", 75.0, 1.85, 110);
-        HommeBete hommeBete1 = new HommeBete("HommeBete1", "Homme", 80.0, 1.9, 50);
-        HommeBete hommeBete2 = new HommeBete("HommeBete2", "Femme", 75.0, 1.85, 55);
-        Lycanthrope lycanthrope1 = new Lycanthrope("Lycanthrope1", "Homme", 85.0, 1.95, 45);
-        Lycanthrope lycanthrope2 = new Lycanthrope("Lycanthrope2", "Femme", 80.0, 1.9, 50);
+        Zombie zombie1 = new Zombie("Zombie1", TypeSexe.MALE, 70.0, 1.8, 30);
+        Vampire vampire1 = new Vampire("Vampire1", TypeSexe.FEMELLE, 65.0, 1.75, 120);
+        Orques orque1 = new Orques("Orque1", TypeSexe.MALE, 90.0, 2.0, 40);
+        Elfe elfe1 = new Elfe("Elfe1", TypeSexe.FEMELLE, 55.0, 1.7, 200);
+        Zombie zombie2 = new Zombie("Zombie2", TypeSexe.FEMELLE, 68.0, 1.65, 28);
+        Vampire vampire2 = new Vampire("Vampire2", TypeSexe.MALE, 70.0, 1.80, 130);
+        Orques orque2 = new Orques("Orque2", TypeSexe.FEMELLE, 85.0, 1.95, 35);
+        Elfe elfe2 = new Elfe("Elfe2", TypeSexe.MALE, 60.0, 1.72, 210);
+        Nain nain1 = new Nain("Nain1", TypeSexe.MALE, 50.0, 1.5, 150);
+        Reptilien reptilien1 = new Reptilien("Reptilien1", TypeSexe.FEMELLE, 70.0, 1.8, 100);
+        Nain nain2 = new Nain("Nain2", TypeSexe.FEMELLE, 45.0, 1.45, 160);
+        Reptilien reptilien2 = new Reptilien("Reptilien2", TypeSexe.MALE, 75.0, 1.85, 110);
+        HommeBete hommeBete1 = new HommeBete("HommeBete1", TypeSexe.MALE, 80.0, 1.9, 50);
+        HommeBete hommeBete2 = new HommeBete("HommeBete2", TypeSexe.FEMELLE, 75.0, 1.85, 55);
+
+        Lycanthrope loup1 = new Lycanthrope(
+                "Fenrir", TypeSexe.MALE, 95.5, 2.1, 40,
+                TypeAge.ADULTE, 120, 50, TypeRangDomination.RANG_23, 70, meute
+        );
+
+        Lycanthrope loup2 = new Lycanthrope(
+                "Lupa", TypeSexe.FEMELLE, 75.3, 1.8, 32,
+                TypeAge.ADULTE, 100, 45, TypeRangDomination.RANG_22, 65, meute
+        );
+
+        Lycanthrope loup3 = new Lycanthrope(
+                "Ulric", TypeSexe.MALE, 80.2, 2.0, 28,
+                TypeAge.JEUNE, 85, 30, TypeRangDomination.RANG_20, 50, meute
+        );
+
+        Lycanthrope loup4 = new Lycanthrope(
+                "Lyra", TypeSexe.FEMELLE, 68.4, 1.75, 22,
+                TypeAge.JEUNE, 90, 40, TypeRangDomination.RANG_19, 60, meute
+        );
+
+        Lycanthrope loup5 = new Lycanthrope(
+                "Balthazar", TypeSexe.MALE, 105.0, 2.3, 50,
+                TypeAge.VIEUX, 140, 70, TypeRangDomination.RANG_24, 90, meute
+        );
+
+        Lycanthrope loup6 = new Lycanthrope(
+                "Selene", TypeSexe.FEMELLE, 70.0, 1.85, 35,
+                TypeAge.ADULTE, 95, 35, TypeRangDomination.RANG_21, 55, meute
+        );
 
         service1.ajouterCreature(zombie1);
         service2.ajouterCreature(vampire1);
@@ -81,8 +121,21 @@ public class Simulation {
         service5.ajouterCreature(reptilien2);
         service7.ajouterCreature(hommeBete1);
         service7.ajouterCreature(hommeBete2);
-        service8.ajouterCreature(lycanthrope1);
-        service8.ajouterCreature(lycanthrope2);
+//        service8.ajouterCreature(lycanthrope1);
+//        service8.ajouterCreature(lycanthrope2);
+        service8.ajouterCreature(loup1);
+        service8.ajouterCreature(loup2);
+        service8.ajouterCreature(loup3);
+        service8.ajouterCreature(loup4);
+        service8.ajouterCreature(loup5);
+        service8.ajouterCreature(loup6);
+
+        meute.addLycanthrope(loup1);
+        meute.addLycanthrope(loup2);
+        meute.addLycanthrope(loup3);
+        meute.addLycanthrope(loup4);
+        meute.addLycanthrope(loup5);
+        meute.addLycanthrope(loup6);
 
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();
@@ -90,7 +143,7 @@ public class Simulation {
         // Thread pour les événements aléatoires
         Thread thread1 = new Thread(() -> {
             while (true) {
-                simulerEvenementsAleatoires(hopital, rand);
+                simulerEvenementsAleatoires(hopital, colonie, rand);
                 try {
                     Thread.sleep(interval * 1000L);
                 } catch (InterruptedException e) {
@@ -124,7 +177,7 @@ public class Simulation {
         interfaceHopital.init();
     }
 
-    private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Random rand) {
+    private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Colonie colonie, Random rand) {
         events = "\nÉvénements aléatoires :\n";
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
@@ -190,6 +243,21 @@ public class Simulation {
                 }
             }
         }
+
+        if (partieLycan) {
+            for (Meute meute : colonie.getMeutes()) {
+                for (Lycanthrope lycanthrope : meute.getLycanthropes()) {
+                    if (lycanthrope.isMort())
+                        continue;
+
+                    double proba = Math.random();
+                    if (proba <= 0.3) {
+                        lycanthrope.hurler();
+                    }
+                }
+            }
+        }
+
         System.out.println(events);
         String mortsIcon = "";
         for (int i = 0; i < morts; ++i) {
