@@ -26,9 +26,9 @@ public class Couple {
     public void reproduction() {
         Random r = new Random();
         for (int i = 1; i < r.nextInt(8); i++) {
-            Lycanthrope2 lycanthrope = new Lycanthrope2(male.getNom() + female.getNom(), Math.random() <= 0.5 ? TypeSexe.MALE : TypeSexe.FEMELLE, 3, 5, 1, 5, 5, TypeRangDomination.RANG_23, male.getFacteurImpetuosite() - 15, female.getMeute());
+            Lycanthrope2 lycanthrope = new Lycanthrope2(male.getNom() + female.getNom() + i , Math.random() <= 0.5 ? TypeSexe.MALE : TypeSexe.FEMELLE, 3, 5, 1, 5, 5, TypeRangDomination.RANG_23, male.getFacteurImpetuosite() - 15, female.getMeute());
             female.getMeute().addLycanthrope(lycanthrope);
-            Colonie.events += " - (🐺➕) " + male.getNom() + " + " + female.getNom() + i + " se sont reproduits et donnent naissance à " + lycanthrope.getNom() + "\n";
+            Colonie.events += " - (🐺➕) " + male.getNom() + " + " + female.getNom() + " se sont reproduits et donnent naissance à " + lycanthrope.getNom() + "\n";
         }
     }
 
