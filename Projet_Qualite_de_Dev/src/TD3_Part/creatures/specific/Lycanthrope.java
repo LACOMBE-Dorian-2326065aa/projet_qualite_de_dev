@@ -6,6 +6,7 @@ import TD3_Part.values.TypeAge;
 import TD3_Part.values.TypeHurlement;
 import TD3_Part.values.TypeRangDomination;
 import TD3_Part.values.TypeSexe;
+import TD4.Meute;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -125,49 +126,49 @@ public class Lycanthrope extends Creature implements CreatureBestiale, HabitantD
     }
 
     public void hurler(TypeHurlement hurlementType, boolean answer, Lycanthrope loup) {
-        Iterator<Lycanthrope> iterator = meute.getLycanthropes().iterator();
-        switch (hurlementType) {
-            case TypeHurlement.APPARTENANCE:
-                Simulation.events += " - (🐺) " + this.getNom() + " : hurle (" + TypeHurlement.APPARTENANCE + "), " + getMeute().getNom() + " RAAAAAAAAAAAAAAAAAAAAH !\n";
-
-                if (answer) {
-                    while (iterator.hasNext()) {
-                        Lycanthrope loupElt = iterator.next();
-                        if (loupElt != this) {
-                            loupElt.entendre(hurlementType, this);
-                        }
-                    }
-                }
-
-                break;
-            case TypeHurlement.DOMINATION:
-                if (meute != null && meute.getLycanthropes().size() > 1) {
-                    Lycanthrope loupElt;
-                    do {
-                        loupElt = meute.getLycanthropes().get(random.nextInt(meute.getLycanthropes().size()));
-                    } while (loupElt == this);
-                    Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : hurle (" + TypeHurlement.DOMINATION + ") contre " + loupElt.getNom() + " (" + loupElt.getRangDomination().getRangDomination() + ") !\n";
-                    loupElt.entendre(hurlementType, this);
-                }
-                break;
-            case TypeHurlement.AGRESSIVITE:
-                Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : entend (" + TypeHurlement.DOMINATION + ") de " + loup.getNom() + " (" + loup.getRangDomination().getRangDomination() + ") mais se montre agressif !\n";
-                loup.setFacteurDomination(loup.getFacteurDomination() - 5);
-                break;
-            case TypeHurlement.SOUMISSION:
-                if (loup.getRangDomination().ordinal() < this.getRangDomination().ordinal()) {
-                    Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : entend (" + TypeHurlement.DOMINATION + ") de " + loup.getNom() + " (" + loup.getRangDomination().getRangDomination() + ") et se soumet ! " + getRangDomination().getRangDomination() + " ↔️ " + loup.getRangDomination().getRangDomination() + "\n";
-                    TypeRangDomination newFacteur = loup.getRangDomination();
-                    loup.setRangDomination(getRangDomination());
-                    setRangDomination(newFacteur);
-                } else {
-                    Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : entend (" + TypeHurlement.DOMINATION + ") de " + loup.getNom() + " (" + loup.getRangDomination().getRangDomination() + ") et se soumet !\n";
-                }
-                setFacteurDomination(getFacteurDomination() - 5);
-                loup.setFacteurDomination(loup.getFacteurDomination() + 5);
-                break;
-        }
-        retrograderRangSiNecessaire(5);
+//        Iterator<Lycanthrope> iterator = meute.getLycanthropes().iterator();
+//        switch (hurlementType) {
+//            case TypeHurlement.APPARTENANCE:
+//                Simulation.events += " - (🐺) " + this.getNom() + " : hurle (" + TypeHurlement.APPARTENANCE + "), " + getMeute().getNom() + " RAAAAAAAAAAAAAAAAAAAAH !\n";
+//
+//                if (answer) {
+//                    while (iterator.hasNext()) {
+//                        Lycanthrope loupElt = iterator.next();
+//                        if (loupElt != this) {
+//                            loupElt.entendre(hurlementType, this);
+//                        }
+//                    }
+//                }
+//
+//                break;
+//            case TypeHurlement.DOMINATION:
+//                if (meute != null && meute.getLycanthropes().size() > 1) {
+//                    Lycanthrope loupElt;
+//                    do {
+//                        loupElt = meute.getLycanthropes().get(random.nextInt(meute.getLycanthropes().size()));
+//                    } while (loupElt == this);
+//                    Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : hurle (" + TypeHurlement.DOMINATION + ") contre " + loupElt.getNom() + " (" + loupElt.getRangDomination().getRangDomination() + ") !\n";
+//                    loupElt.entendre(hurlementType, this);
+//                }
+//                break;
+//            case TypeHurlement.AGRESSIVITE:
+//                Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : entend (" + TypeHurlement.DOMINATION + ") de " + loup.getNom() + " (" + loup.getRangDomination().getRangDomination() + ") mais se montre agressif !\n";
+//                loup.setFacteurDomination(loup.getFacteurDomination() - 5);
+//                break;
+//            case TypeHurlement.SOUMISSION:
+//                if (loup.getRangDomination().ordinal() < this.getRangDomination().ordinal()) {
+//                    Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : entend (" + TypeHurlement.DOMINATION + ") de " + loup.getNom() + " (" + loup.getRangDomination().getRangDomination() + ") et se soumet ! " + getRangDomination().getRangDomination() + " ↔️ " + loup.getRangDomination().getRangDomination() + "\n";
+//                    TypeRangDomination newFacteur = loup.getRangDomination();
+//                    loup.setRangDomination(getRangDomination());
+//                    setRangDomination(newFacteur);
+//                } else {
+//                    Simulation.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : entend (" + TypeHurlement.DOMINATION + ") de " + loup.getNom() + " (" + loup.getRangDomination().getRangDomination() + ") et se soumet !\n";
+//                }
+//                setFacteurDomination(getFacteurDomination() - 5);
+//                loup.setFacteurDomination(loup.getFacteurDomination() + 5);
+//                break;
+//        }
+//        retrograderRangSiNecessaire(5);
     }
 
     public void entendre(TypeHurlement hurlementType, Lycanthrope loup) {
@@ -211,7 +212,6 @@ public class Lycanthrope extends Creature implements CreatureBestiale, HabitantD
     @Override
     public void setMort(boolean mort) {
         super.setMort(true);
-        meute.removeLycanthrope(this);
         setMeute(null);
     }
 

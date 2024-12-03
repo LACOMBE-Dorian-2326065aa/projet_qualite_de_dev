@@ -1,9 +1,7 @@
 package TD3_Part.main;
 
-import TD3_Part.creatures.Colonie;
 import TD3_Part.creatures.Maladie;
 import TD3_Part.creatures.Creature;
-import TD3_Part.creatures.Meute;
 import TD3_Part.services.CentreDeQuarantaine;
 import TD3_Part.services.Crypte;
 import TD3_Part.services.ServiceMedical;
@@ -13,7 +11,6 @@ import TD3_Part.values.TypeBudget;
 import TD3_Part.values.TypeRangDomination;
 import TD3_Part.values.TypeSexe;
 
-import java.util.List;
 import java.util.Random;
 
 public class Simulation {
@@ -25,7 +22,7 @@ public class Simulation {
     public static String events;
     public static boolean partieLycan = true;
 
-    public static void main(String[] args) {
+    public void launch() {
         // Création de l'hôpital fantastique
         HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 11);
 
@@ -41,11 +38,11 @@ public class Simulation {
         ServiceMedical service10quarantaine = new CentreDeQuarantaine("Centre de Quarantaine", 1000.0, 20, TypeBudget.INEXISTANT);
         ServiceMedical service11vide = new ServiceMedical("Service Vide", 1000.0, 20, TypeBudget.INEXISTANT);
 
-        Colonie colonie = new Colonie();
+//        Colonie colonie = new Colonie();
+//
+//        Meute meute = new Meute("Meute des Ombres", "Sud");
 
-        Meute meute = new Meute("Meute des Ombres", "Sud");
-
-        colonie.ajouterMeute(meute);
+//        colonie.ajouterMeute(meute);
 
         hopital.ajouterService(service1);
         hopital.ajouterService(service2);
@@ -77,35 +74,35 @@ public class Simulation {
         HommeBete hommeBete1 = new HommeBete("HommeBete1", TypeSexe.MALE, 80.0, 1.9, 50);
         HommeBete hommeBete2 = new HommeBete("HommeBete2", TypeSexe.FEMELLE, 75.0, 1.85, 55);
 
-        Lycanthrope loup1 = new Lycanthrope(
-                "Fenrir", TypeSexe.MALE, 95.5, 2.1, 40,
-                TypeAge.ADULTE, 120, 50, TypeRangDomination.RANG_23, 70, meute
-        );
-
-        Lycanthrope loup2 = new Lycanthrope(
-                "Lupa", TypeSexe.FEMELLE, 75.3, 1.8, 32,
-                TypeAge.ADULTE, 100, 45, TypeRangDomination.RANG_22, 65, meute
-        );
-
-        Lycanthrope loup3 = new Lycanthrope(
-                "Ulric", TypeSexe.MALE, 80.2, 2.0, 28,
-                TypeAge.JEUNE, 85, 30, TypeRangDomination.RANG_20, 50, meute
-        );
-
-        Lycanthrope loup4 = new Lycanthrope(
-                "Lyra", TypeSexe.FEMELLE, 68.4, 1.75, 22,
-                TypeAge.JEUNE, 90, 40, TypeRangDomination.RANG_19, 60, meute
-        );
-
-        Lycanthrope loup5 = new Lycanthrope(
-                "Balthazar", TypeSexe.MALE, 105.0, 2.3, 50,
-                TypeAge.VIEUX, 140, 70, TypeRangDomination.RANG_24, 90, meute
-        );
-
-        Lycanthrope loup6 = new Lycanthrope(
-                "Selene", TypeSexe.FEMELLE, 70.0, 1.85, 35,
-                TypeAge.ADULTE, 95, 35, TypeRangDomination.RANG_21, 55, meute
-        );
+//        Lycanthrope loup1 = new Lycanthrope(
+//                "Fenrir", TypeSexe.MALE, 95.5, 2.1, 40,
+//                TypeAge.ADULTE, 120, 50, TypeRangDomination.RANG_23, 70, meute
+//        );
+//
+//        Lycanthrope loup2 = new Lycanthrope(
+//                "Lupa", TypeSexe.FEMELLE, 75.3, 1.8, 32,
+//                TypeAge.ADULTE, 100, 45, TypeRangDomination.RANG_22, 65, meute
+//        );
+//
+//        Lycanthrope loup3 = new Lycanthrope(
+//                "Ulric", TypeSexe.MALE, 80.2, 2.0, 28,
+//                TypeAge.JEUNE, 85, 30, TypeRangDomination.RANG_20, 50, meute
+//        );
+//
+//        Lycanthrope loup4 = new Lycanthrope(
+//                "Lyra", TypeSexe.FEMELLE, 68.4, 1.75, 22,
+//                TypeAge.JEUNE, 90, 40, TypeRangDomination.RANG_19, 60, meute
+//        );
+//
+//        Lycanthrope loup5 = new Lycanthrope(
+//                "Balthazar", TypeSexe.MALE, 105.0, 2.3, 50,
+//                TypeAge.VIEUX, 140, 70, TypeRangDomination.RANG_24, 90, meute
+//        );
+//
+//        Lycanthrope loup6 = new Lycanthrope(
+//                "Selene", TypeSexe.FEMELLE, 70.0, 1.85, 35,
+//                TypeAge.ADULTE, 95, 35, TypeRangDomination.RANG_21, 55, meute
+//        );
 
         service1.ajouterCreature(zombie1);
         service2.ajouterCreature(vampire1);
@@ -123,19 +120,19 @@ public class Simulation {
         service7.ajouterCreature(hommeBete2);
 //        service8.ajouterCreature(lycanthrope1);
 //        service8.ajouterCreature(lycanthrope2);
-        service8.ajouterCreature(loup1);
-        service8.ajouterCreature(loup2);
-        service8.ajouterCreature(loup3);
-        service8.ajouterCreature(loup4);
-        service8.ajouterCreature(loup5);
-        service8.ajouterCreature(loup6);
+//        service8.ajouterCreature(loup1);
+//        service8.ajouterCreature(loup2);
+//        service8.ajouterCreature(loup3);
+//        service8.ajouterCreature(loup4);
+//        service8.ajouterCreature(loup5);
+//        service8.ajouterCreature(loup6);
 
-        meute.addLycanthrope(loup1);
-        meute.addLycanthrope(loup2);
-        meute.addLycanthrope(loup3);
-        meute.addLycanthrope(loup4);
-        meute.addLycanthrope(loup5);
-        meute.addLycanthrope(loup6);
+//        meute.addLycanthrope(loup1);
+//        meute.addLycanthrope(loup2);
+//        meute.addLycanthrope(loup3);
+//        meute.addLycanthrope(loup4);
+//        meute.addLycanthrope(loup5);
+//        meute.addLycanthrope(loup6);
 
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();
@@ -143,7 +140,7 @@ public class Simulation {
         // Thread pour les événements aléatoires
         Thread thread1 = new Thread(() -> {
             while (true) {
-                simulerEvenementsAleatoires(hopital, colonie, rand);
+                simulerEvenementsAleatoires(hopital, rand);
                 try {
                     Thread.sleep(interval * 1000L);
                 } catch (InterruptedException e) {
@@ -177,7 +174,7 @@ public class Simulation {
         interfaceHopital.init();
     }
 
-    private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Colonie colonie, Random rand) {
+    private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Random rand) {
         events = "\nÉvénements aléatoires :\n";
         for (ServiceMedical service : hopital.getServices()) {
             for (Creature creature : service.getCreatures()) {
@@ -244,19 +241,19 @@ public class Simulation {
             }
         }
 
-        if (partieLycan) {
-            for (Meute meute : colonie.getMeutes()) {
-                for (Lycanthrope lycanthrope : meute.getLycanthropes()) {
-                    if (lycanthrope.isMort())
-                        continue;
-
-                    double proba = Math.random();
-                    if (proba <= 0.3) {
-                        lycanthrope.hurler();
-                    }
-                }
-            }
-        }
+//        if (partieLycan) {
+//            for (Meute meute : colonie.getMeutes()) {
+//                for (Lycanthrope lycanthrope : meute.getLycanthropes()) {
+//                    if (lycanthrope.isMort())
+//                        continue;
+//
+//                    double proba = Math.random();
+//                    if (proba <= 0.3) {
+//                        lycanthrope.hurler();
+//                    }
+//                }
+//            }
+//        }
 
         System.out.println(events);
         String mortsIcon = "";

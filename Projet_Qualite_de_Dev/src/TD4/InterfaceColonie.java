@@ -1,7 +1,7 @@
 //package TD4;
 //
-//import TD3_Part.creatures.Colonie;
-//import TD3_Part.creatures.Meute;
+//import TD4.Colonie;
+//import TD4.Meute;
 //
 //import java.util.Scanner;
 //
