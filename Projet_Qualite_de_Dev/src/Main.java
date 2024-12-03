@@ -1,13 +1,12 @@
 import TD3_Part.main.Simulation;
 import TD4.lycanthropes.Colonie;
-
 import java.util.Scanner;
 
 public class Main {
 
     public static Scanner scanner = new Scanner(System.in);
 
-    public static void main() {
+    public static void main(String[] args) {
         System.out.println("Bienvenue dans le notre simulateur !\nChoisissez une simulation à lancer :\n1 : Hôpital Fantastique\n2 : Colonie de Lycanthropes");
         firstAsk();
     }
