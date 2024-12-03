@@ -1,12 +1,8 @@
-package TD4;
+package TD4.lycanthropes;
 
-import TD3_Part.creatures.specific.Lycanthrope;
-import TD3_Part.main.InterfaceHopital;
-import TD3_Part.values.TypeAge;
-import TD3_Part.values.TypeRangDomination;
+import TD4.values.TypeRangDomination;
 import TD3_Part.values.TypeSexe;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -162,13 +158,14 @@ public class Colonie {
             while (true) {
                 String command = scanner.nextLine();
                 boolean trouve = false;
-                if (command.startsWith("/hurlement")) {
+                boolean trouve2 = false;
+                if (command.toLowerCase().startsWith("/hurlement")) {
                     events = "";
                     String[] args = command.split(" ");
-                    if (args.length == 2) {
+                    if (args.length == 1) {
                         for (Meute meute : getMeutes()) {
                             for (Lycanthrope2 lycanthrope : meute.getLycanthropes()) {
-                                if (lycanthrope.getNom().equals(args[1])) {
+                                if (lycanthrope.getNom().toLowerCase().equals(args[1].toLowerCase())) {
                                     trouve = true;
                                     lycanthrope.hurler();
                                     System.out.println(events);
@@ -179,6 +176,55 @@ public class Colonie {
                         if (!trouve) {
                             System.out.println("Erreur : aucun Lycanthrope de ce nom trouvé.\n");
                         }
+                    }
+                } else if (command.toLowerCase().startsWith("/domination")) {
+                    events = "";
+                    String[] args = command.split(" ");
+                    if (args.length == 3) { // Vérifier qu'il y a bien deux noms
+                        String dominateurNom = args[1].toLowerCase();
+                        String domineNom = args[2].toLowerCase();
+                        boolean dominateurTrouve = false;
+                        boolean domineTrouve = false;
+
+                        // Parcourir les meutes et leurs lycanthropes
+                        for (Meute meute : getMeutes()) {
+                            Lycanthrope2 dominateur = null;
+                            Lycanthrope2 domine = null;
+
+                            for (Lycanthrope2 lycanthrope : meute.getLycanthropes()) {
+                                if (lycanthrope.getNom().toLowerCase().equals(dominateurNom)) {
+                                    dominateur = lycanthrope;
+                                    dominateurTrouve = true;
+                                }
+                                if (lycanthrope.getNom().toLowerCase().equals(domineNom)) {
+                                    domine = lycanthrope;
+                                    domineTrouve = true;
+                                }
+
+                                // Si on a trouvé les deux, on peut arrêter la recherche
+                                if (dominateur != null && domine != null) {
+                                    break;
+                                }
+                            }
+
+                            // Si dominateur et dominé trouvés dans cette meute
+                            if (dominateur != null && domine != null) {
+                                dominateur.hurlerDomination(domine);
+                                System.out.println(events);
+                                events = "";
+                                break;
+                            }
+                        }
+
+                        // Gestion des erreurs
+                        if (!dominateurTrouve) {
+                            System.out.println("Erreur : dominateur '" + args[1] + "' introuvable.\n");
+                        }
+                        if (!domineTrouve) {
+                            System.out.println("Erreur : dominé '" + args[2] + "' introuvable.\n");
+                        }
+                    } else {
+                        System.out.println("Erreur : commande invalide. Utilisation correcte : /domination [dominateur] [dominé]\n");
                     }
                 }
                 try {

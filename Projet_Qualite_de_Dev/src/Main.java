@@ -1,5 +1,5 @@
 import TD3_Part.main.Simulation;
-import TD4.Colonie;
+import TD4.lycanthropes.Colonie;
 
 import java.util.Scanner;
 

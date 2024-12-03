@@ -1,10 +1,9 @@
-package TD4;
+package TD4.lycanthropes;
 
 import TD3_Part.creatures.*;
-import TD3_Part.main.Simulation;
-import TD3_Part.values.TypeAge;
-import TD3_Part.values.TypeHurlement;
-import TD3_Part.values.TypeRangDomination;
+import TD4.values.TypeAge;
+import TD4.values.TypeHurlement;
+import TD4.values.TypeRangDomination;
 import TD3_Part.values.TypeSexe;
 
 import java.util.Iterator;
@@ -122,12 +121,8 @@ public class Lycanthrope2 extends Creature implements CreatureBestiale, Habitant
 
     public void hurlerDomination(Lycanthrope2 lycan) {
         if (meute != null && meute.getLycanthropes().size() > 1) {
-            Lycanthrope2 loupElt;
-            do {
-                loupElt = meute.getLycanthropes().get(random.nextInt(meute.getLycanthropes().size()));
-            } while (loupElt == this);
-            Colonie.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : hurle (" + TypeHurlement.DOMINATION + ") contre " + loupElt.getNom() + " (" + loupElt.getRangDomination().getRangDomination() + ") !\n";
-            loupElt.entendre(TypeHurlement.DOMINATION, this);
+            Colonie.events += " - (🐺🔪) " + this.getNom() + " (" + getRangDomination().getRangDomination() + ") : hurle (" + TypeHurlement.DOMINATION + ") contre " + lycan.getNom() + " (" + lycan.getRangDomination().getRangDomination() + ") !\n";
+            lycan.entendre(TypeHurlement.DOMINATION, this);
         }
     }
 
@@ -236,7 +231,6 @@ public class Lycanthrope2 extends Creature implements CreatureBestiale, Habitant
         } else {
             setCategorieAge(TypeAge.VIEUX);
         }
-        System.out.println(getNom() + " " + getAge() + getCategorieAge());
 
         if (old == null)
             return;

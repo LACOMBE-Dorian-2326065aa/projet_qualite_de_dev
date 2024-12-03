@@ -6,9 +6,7 @@ import TD3_Part.services.CentreDeQuarantaine;
 import TD3_Part.services.Crypte;
 import TD3_Part.services.ServiceMedical;
 import TD3_Part.creatures.specific.*;
-import TD3_Part.values.TypeAge;
 import TD3_Part.values.TypeBudget;
-import TD3_Part.values.TypeRangDomination;
 import TD3_Part.values.TypeSexe;
 
 import java.util.Random;
@@ -73,36 +71,8 @@ public class Simulation {
         Reptilien reptilien2 = new Reptilien("Reptilien2", TypeSexe.MALE, 75.0, 1.85, 110);
         HommeBete hommeBete1 = new HommeBete("HommeBete1", TypeSexe.MALE, 80.0, 1.9, 50);
         HommeBete hommeBete2 = new HommeBete("HommeBete2", TypeSexe.FEMELLE, 75.0, 1.85, 55);
-
-//        Lycanthrope loup1 = new Lycanthrope(
-//                "Fenrir", TypeSexe.MALE, 95.5, 2.1, 40,
-//                TypeAge.ADULTE, 120, 50, TypeRangDomination.RANG_23, 70, meute
-//        );
-//
-//        Lycanthrope loup2 = new Lycanthrope(
-//                "Lupa", TypeSexe.FEMELLE, 75.3, 1.8, 32,
-//                TypeAge.ADULTE, 100, 45, TypeRangDomination.RANG_22, 65, meute
-//        );
-//
-//        Lycanthrope loup3 = new Lycanthrope(
-//                "Ulric", TypeSexe.MALE, 80.2, 2.0, 28,
-//                TypeAge.JEUNE, 85, 30, TypeRangDomination.RANG_20, 50, meute
-//        );
-//
-//        Lycanthrope loup4 = new Lycanthrope(
-//                "Lyra", TypeSexe.FEMELLE, 68.4, 1.75, 22,
-//                TypeAge.JEUNE, 90, 40, TypeRangDomination.RANG_19, 60, meute
-//        );
-//
-//        Lycanthrope loup5 = new Lycanthrope(
-//                "Balthazar", TypeSexe.MALE, 105.0, 2.3, 50,
-//                TypeAge.VIEUX, 140, 70, TypeRangDomination.RANG_24, 90, meute
-//        );
-//
-//        Lycanthrope loup6 = new Lycanthrope(
-//                "Selene", TypeSexe.FEMELLE, 70.0, 1.85, 35,
-//                TypeAge.ADULTE, 95, 35, TypeRangDomination.RANG_21, 55, meute
-//        );
+        Lycanthrope lycanthrope1 = new Lycanthrope("Lycanthrope1", TypeSexe.MALE, 75.0, 1.70, 18);
+        Lycanthrope lycanthrope2 = new Lycanthrope("Lycanthrope2", TypeSexe.FEMELLE, 70.0, 1.65, 20);
 
         service1.ajouterCreature(zombie1);
         service2.ajouterCreature(vampire1);
@@ -118,21 +88,8 @@ public class Simulation {
         service5.ajouterCreature(reptilien2);
         service7.ajouterCreature(hommeBete1);
         service7.ajouterCreature(hommeBete2);
-//        service8.ajouterCreature(lycanthrope1);
-//        service8.ajouterCreature(lycanthrope2);
-//        service8.ajouterCreature(loup1);
-//        service8.ajouterCreature(loup2);
-//        service8.ajouterCreature(loup3);
-//        service8.ajouterCreature(loup4);
-//        service8.ajouterCreature(loup5);
-//        service8.ajouterCreature(loup6);
-
-//        meute.addLycanthrope(loup1);
-//        meute.addLycanthrope(loup2);
-//        meute.addLycanthrope(loup3);
-//        meute.addLycanthrope(loup4);
-//        meute.addLycanthrope(loup5);
-//        meute.addLycanthrope(loup6);
+        service8.ajouterCreature(lycanthrope1);
+        service8.ajouterCreature(lycanthrope2);
 
         InterfaceHopital interfaceHopital = new InterfaceHopital(hopital);
         Random rand = new Random();

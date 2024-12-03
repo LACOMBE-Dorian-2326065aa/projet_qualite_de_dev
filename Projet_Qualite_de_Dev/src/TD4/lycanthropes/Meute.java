@@ -1,7 +1,6 @@
-package TD4;
+package TD4.lycanthropes;
 
-import TD3_Part.creatures.specific.Lycanthrope;
-import TD3_Part.values.TypeRangDomination;
+import TD4.values.TypeRangDomination;
 import TD3_Part.values.TypeSexe;
 
 import java.util.ArrayList;
