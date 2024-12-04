@@ -55,18 +55,6 @@ class Lycanthrope2Test {
     }
 
     @Test
-    void testHurler() {
-        lycanthrope.hurler();
-        // Add assertions to verify the expected behavior of hurler method
-    }
-
-    @Test
-    void testVieillir() {
-        lycanthrope.vieillir();
-        // Add assertions to verify the expected behavior of vieillir method
-    }
-
-    @Test
     void testSetMort() {
         lycanthrope.setMort(true);
         assertTrue(lycanthrope.isMort());

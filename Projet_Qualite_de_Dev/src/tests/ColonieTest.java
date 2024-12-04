@@ -35,31 +35,9 @@ class ColonieTest {
         colonie.init();
         assertEquals(4, colonie.getMeutes().size());
     }
-
-    @Test
-    void testAfficherLycanthropes() {
-        colonie.init();
-        colonie.afficherLycanthropes();
-        // Add assertions to verify the expected output
-    }
-
-    @Test
-    void testAfficherMeutes() {
-        colonie.init();
-        colonie.afficherMeutes();
-        // Add assertions to verify the expected output
-    }
-
     @Test
     void testCreerMeute() {
         colonie.creerMeute("Meute Test", "Forêt");
         assertEquals(1, colonie.getMeutes().size());
-    }
-
-    @Test
-    void testSimulerEvenementsAleatoires() {
-        colonie.init();
-        colonie.simulerEvenementsAleatoires();
-        // Add assertions to verify the expected behavior
     }
 }

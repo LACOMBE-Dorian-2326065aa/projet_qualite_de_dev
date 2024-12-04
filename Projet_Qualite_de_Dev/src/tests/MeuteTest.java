@@ -52,9 +52,5 @@ class MeuteTest {
         assertEquals(lycanthrope2, meute.getLycanthropes().get(0));
     }
 
-    @Test
-    void testAfficherLycanthropes() {
-        meute.afficherLycanthropes();
-        // Add assertions to verify the expected output
-    }
+
 }

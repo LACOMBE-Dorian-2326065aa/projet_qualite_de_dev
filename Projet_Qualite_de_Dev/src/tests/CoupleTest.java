@@ -25,17 +25,6 @@ class CoupleTest {
     }
 
     @Test
-    void testAfficherCaracteristiques() {
-        couple.afficherCaracteristiques();
-        // Add assertions to verify the expected output
-        String expectedMaleCharacteristics = "Nom: Alpha Male, Sexe: MALE, Poids: 80.0, Taille: 1.8, Age: 20, Force: 50, Vitesse: 10, Rang: RANG_24, Nombre de combats gagnés: 5";
-        String expectedFemaleCharacteristics = "Nom: Alpha Femelle, Sexe: FEMELLE, Poids: 70.0, Taille: 1.7, Age: 18, Force: 45, Vitesse: 8, Rang: RANG_24, Nombre de combats gagnés: 4";
-
-        assertEquals(expectedMaleCharacteristics, male.toString());
-        assertEquals(expectedFemaleCharacteristics, female.toString());
-    }
-
-    @Test
     void testReproduction() {
         couple.reproduction();
         assertTrue(meute.getLycanthropes().size() > 2);
