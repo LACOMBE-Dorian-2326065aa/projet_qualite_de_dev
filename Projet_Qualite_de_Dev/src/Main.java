@@ -10,7 +10,9 @@ public class Main {
         System.out.println("Bienvenue dans le notre simulateur !\nChoisissez une simulation à lancer :\n1 : Hôpital Fantastique\n2 : Colonie de Lycanthropes");
         firstAsk();
     }
-
+    /*
+     * Demande à l'utilisateur de choisir une simulation à lancer
+     */
     public static void firstAsk() {
         switch (scanner.nextLine()) {
             case "1":

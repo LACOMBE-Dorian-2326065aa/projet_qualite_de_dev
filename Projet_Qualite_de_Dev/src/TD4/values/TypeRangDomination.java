@@ -1,5 +1,10 @@
 package TD4.values;
 
+/**
+ * L'énumération TypeRangDomination représente différents rangs de domination
+ * en utilisant les lettres de l'alphabet grec.
+ * Chaque rang est associé à une lettre grecque spécifique.
+ */
 public enum TypeRangDomination {
     // αβγδεζηθικλμνξοπρστυϕχψω
     RANG_1("ω"),

@@ -1,16 +1,17 @@
 package TD3_Part.main;
 
-import TD3_Part.creatures.Maladie;
 import TD3_Part.creatures.Creature;
+import TD3_Part.creatures.Maladie;
+import TD3_Part.creatures.specific.*;
 import TD3_Part.services.CentreDeQuarantaine;
 import TD3_Part.services.Crypte;
 import TD3_Part.services.ServiceMedical;
-import TD3_Part.creatures.specific.*;
 import TD3_Part.values.TypeBudget;
 import TD3_Part.values.TypeSexe;
-
 import java.util.Random;
-
+/**
+ * La classe Simulation représente une simulation de l'hôpital fantastique.
+ */
 public class Simulation {
 
     private static int interval = 30;
@@ -19,7 +20,10 @@ public class Simulation {
     private static int iterations = 0;
     public static String events;
     public static boolean partieLycan = true;
-
+    /**
+     * Méthode principale pour lancer la simulation.
+     * Elle crée un hôpital fantastique et des services médicaux, des médecins et des créatures.
+     */
     public void launch() {
         // Création de l'hôpital fantastique
         HopitalFantastique hopital = new HopitalFantastique("Hôpital Fantastique", 11);
@@ -130,7 +134,11 @@ public class Simulation {
         thread2.start();
         interfaceHopital.init();
     }
-
+    /**
+     * Simule des événements aléatoires pour les créatures de l'hôpital.
+     * @param hopital L'objet {@code HopitalFantastique} contenant les services médicaux et créatures.
+     * @param rand Instance de {@link Random} utilisée pour générer des valeurs aléatoires.
+     */
     private static void simulerEvenementsAleatoires(HopitalFantastique hopital, Random rand) {
         events = "\nÉvénements aléatoires :\n";
         for (ServiceMedical service : hopital.getServices()) {
