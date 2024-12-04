@@ -97,6 +97,9 @@ public class Simulation {
         // Thread pour les événements aléatoires
         Thread thread1 = new Thread(() -> {
             while (true) {
+                System.out.println("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n\nIl y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital.\n");
+                hopital.afficherCreatures();
+                System.out.println("\n=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n\n");
                 simulerEvenementsAleatoires(hopital, rand);
                 try {
                     Thread.sleep(interval * 1000L);
@@ -116,9 +119,6 @@ public class Simulation {
         // Thread pour les actions de l'utilisateur
         Thread thread2 = new Thread(() -> {
             while (true) {
-                System.out.println("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIl y a actuellement " + hopital.getNombreCreatures() + " créatures dans l'hôpital.\n\n");
-                hopital.afficherCreatures();
-                System.out.println("\n=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n\n");
                 InterfaceHopital.resetActions();
                 try {
                     Thread.sleep(interval * 1000L);

@@ -180,16 +180,15 @@ public class Colonie {
                 } else if (command.toLowerCase().startsWith("/domination")) {
                     events = "";
                     String[] args = command.split(" ");
-                    if (args.length == 3) { // Vérifier qu'il y a bien deux noms
+                    if (args.length == 3) {
                         String dominateurNom = args[1].toLowerCase();
                         String domineNom = args[2].toLowerCase();
                         boolean dominateurTrouve = false;
                         boolean domineTrouve = false;
+                        Lycanthrope2 dominateur = null;
+                        Lycanthrope2 domine = null;
 
-                        // Parcourir les meutes et leurs lycanthropes
                         for (Meute meute : getMeutes()) {
-                            Lycanthrope2 dominateur = null;
-                            Lycanthrope2 domine = null;
 
                             for (Lycanthrope2 lycanthrope : meute.getLycanthropes()) {
                                 if (lycanthrope.getNom().toLowerCase().equals(dominateurNom)) {
@@ -201,31 +200,36 @@ public class Colonie {
                                     domineTrouve = true;
                                 }
 
-                                // Si on a trouvé les deux, on peut arrêter la recherche
                                 if (dominateur != null && domine != null) {
                                     break;
                                 }
                             }
+                        }
 
-                            // Si dominateur et dominé trouvés dans cette meute
-                            if (dominateur != null && domine != null) {
+                        if (dominateur != null && domine != null) {
+                            if (dominateur.getMeute() == domine.getMeute()) {
                                 dominateur.hurlerDomination(domine);
                                 System.out.println(events);
                                 events = "";
-                                break;
+                            } else {
+                                System.out.println("Erreur : les deux lycanthropes ne sont pas dans la même meute.\n");
                             }
                         }
 
-                        // Gestion des erreurs
                         if (!dominateurTrouve) {
                             System.out.println("Erreur : dominateur '" + args[1] + "' introuvable.\n");
                         }
                         if (!domineTrouve) {
                             System.out.println("Erreur : dominé '" + args[2] + "' introuvable.\n");
                         }
+                        if (!dominateurTrouve || !domineTrouve) {
+                            System.out.println("Si les noms sont corrects, vérifiez qu'ils sont bien dans la même meute.\n");
+                        }
                     } else {
                         System.out.println("Erreur : commande invalide. Utilisation correcte : /domination [dominateur] [dominé]\n");
                     }
+                } else {
+                    System.out.println("Commande inconnue.\n");
                 }
                 try {
                     Thread.sleep(1);
