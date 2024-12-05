@@ -249,7 +249,7 @@ public class Colonie {
                 if (command.toLowerCase().startsWith("/hurlement")) {
                     events = "";
                     String[] args = command.split(" ");
-                    if (args.length == 1) {
+                    if (args.length == 2) {
                         for (Meute meute : getMeutes()) {
                             for (Lycanthrope2 lycanthrope : meute.getLycanthropes()) {
                                 if (lycanthrope.getNom().toLowerCase().equals(args[1].toLowerCase())) {
